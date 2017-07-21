@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<script type="text/javascript" src="lib/js/jquery/jquery-1.8.2.js"></script>
+	<style>
+		body {
+			font-family: Microsoft YaHei, "黑体", "宋体", "幼圆", Helvetica Neue, Helvetica, Arial, sans-serif;
+		}
+	.icon{
+		display: block;
+		float: left;
+		margin: 0 10px;
+	}
+		.app-icon {
+			width: 42px;
+			height: 42px;
+			margin: -1px;
+		}
+
+		a {
+			text-decoration: none
+		}
+
+		.app-text {
+			text-align: center;
+			padding: 0 2px;
+			margin-left: -6px;
+			line-height: 13px;
+			display: block;
+			color: #000;
+			font-size: 12px;
+			word-wrap: break-word;
+			word-break: break-all;
+			width: 50px;
+		}
+	</style>
+	<script>
+		var $top = top.$;
+		var topDom = top.document;
+		var $uninstalls;
+		var elsDeskTop = top.elsDeskTop;
+		var h = elsDeskTop.desktop.hideIconsData;
+		var beforeShow = function(){};
+		var menuData = [[{
+				text: top.jsLang['i18n_js_restore'] || '还原',
+				func: function () {
+					var id = this.id;
+					var p = $.extend({},elsDeskTop.appPosition[id]);
+					var app = elsDeskTop.desktop.creatIcon(this._d);
+					var g, t,c;
+					if(id){
+						if(p.g&&(g = topDom.getElementById(p.g))){
+								g.addApps(app);
+						}else if(p.c&&((c=$top('#appCategory'+ p.c+' .innerDesktop .desktopIcon')).length)){
+							t = c.eq(p.i);
+							if(!t.length){
+								c.last().after(app);
+							}else t.before(app);
+						}else $top('.currDesktop .innerDesktop .addIcon').before(app);
+					}
+					h.splice(h.indexOf(this._d),1);
+					elsDeskTop.desktop.arrangeIcons();
+					elsDeskTop.desktop.saveIconInfo();
+					this.remove();
+				}
+			}]];
+		beforeShow.call = function(){
+			var e = this.call.caller.arguments[0];
+			var o = $top(frameElement).offset();
+			var x = e.clientX;
+			var y = e.clientY;
+			Object.defineProperties(e,{
+				clientX:{get:function(){
+					return  o.left+x;
+				}},
+				clientY:{get:function(){
+					return o.top+y;
+				}}
+			});
+		};
+		var createIcons = function(data){
+			$uninstalls.empty();
+			if(Array.isArray(data))data.forEach(function(d){
+				var app = $(
+						'<a class="icon"> <img class="app-icon" src="'
+						+d.iconSrc
+						+'"/> <span class="app-text">'
+						+d.windowTitle
+						+'</span></a>');
+				app[0].id = d.windowsId;
+				app[0]._d = d;
+				$top(app).smartMenu(menuData, {
+					beforeShow : beforeShow
+				});
+				$uninstalls.append(app);
+			})
+		};
+		$(function(){
+			$(document).on('click',function(){
+				$top('.smart_menu_box').hide();
+			});
+			$uninstalls = $('#uninstalls');
+			var data = frameElement.parentData;
+			createIcons(data);
+			frameElement.onparentdataload = createIcons;
+		})
+	</script>
+</head>
+<body>
+<a class="icon" href="javascript:window.open('http://112.74.207.157:8099/updateState.php')">
+	<img class="app-icon" src="icon/destop-icon/third_part.jpg"/>
+	<span class="app-text">第三方接口测试</span>
+</a><div id="uninstalls"></div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+/**
+ * 鎻愮ず妗� */
+.dis-in-b { display: inline-block; }
+.tip-box {
+    background: none repeat scroll 0 0 #fff;
+    border: 1px solid #CCCCCC;
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 0 0 8px #000000;
+    position: absolute;
+    display: block;
+    width: 320px;
+    z-index: 300002;
+    left: 50%;
+    top: 50%;
+    /*min-height: 120px;*/
+    margin: -120px 0 0 -160px;
+    color: #555;
+}
+
+.tip-box-icon {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    background: transparent 50% 50% no-repeat;
+    background-size: contain;
+    left: 26px;
+    top: 11px;
+}
+.tip-head {
+	position: relative;
+    height: 38px;
+    border-bottom: solid 1px #ddd;
+    background: url('../../theme/default/images/amg_body.png') repeat;
+}
+.tip-head .tip-logo {
+	position : absolute;
+    height: 30px;
+    width: 30px;
+    top: 4px;
+    left: 6px;
+}
+.tip-head .tip-text {
+	position: absolute;
+	min-width: 100px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	left: 40px;
+    color: #555;
+}
+.tip-head .tip-text.up { top: 5px; }
+.tip-head .tip-text.down { top: 19px; }
+.tip-head .tip-close {
+	position: absolute;
+	width: 24px;
+	height: 24px;
+	top: 6px;
+	right: 10px;
+	background: url('../../theme/default/images/boxy_btn.png') no-repeat center center  #f6f6f6;
+    background-size: 100%;
+	border-radius: 50%;
+	color: #555;
+}
+.confirm-tip {
+    position: relative;
+	margin-bottom: 50px;
+	text-align: center;
+	min-height: 32px;
+	border-bottom: solid 1px #ddd;
+}
+
+.tip-message {
+    display: table;
+	text-align: center;
+	width: 100%;
+}
+.confirm-tip .btn-option {
+    position: absolute;
+	width: 80px;
+	height: 26px;
+	bottom: -40px;
+	line-height: 26px;
+	border: solid 1px #ddd;
+	background-color: #eee;
+	color: #555;
+	border-radius: 30px;
+	cursor: pointer;
+}
+.confirm-tip .btn-option:hover {
+    background-color: #ccc;
+    color:#fff;
+}
+.confirm-tip .btn-option.sure-btn { left: 20px;}
+.confirm-tip .btn-option.cancel-btn { right: 20px; }
+/**
+ * 编辑个人信息
+ */
+.personal-message-box {
+    position: absolute;
+    width: 420px;
+    height: 543px;
+    left: 50%;
+    top: 50%;
+    margin-left: -210px;
+    margin-top: -271px;
+    border-radius: 2px;
+    box-shadow: 1px 2px 5px rgba(8, 8, 8, 0.34);
+    z-index: 300002;
+}
+.ui_boxyClose{
+    background: url("../../extend/images/boxy_btn.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    height: 28px;
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    width: 28px;
+    z-index: 1;
+}

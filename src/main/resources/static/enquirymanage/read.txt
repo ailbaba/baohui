@@ -1,0 +1,688 @@
+PurchaseEnquiryHeaderHis
+PurchaseEnquiryHeader
+PurchaseEnquiryItemHis
+PurchaseEnquiryItem
+
+SaleEnquiryHeaderHis
+SaleEnquiryHeader
+SaleEnquiryItemHis
+SaleEnquiryItem
+
+orderBeginDate  改为 beginDate
+orderEndDate    改为 endDate  
+
+sql脚本：
+
+ALTER TABLE purchase_enquiry_header_his CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE purchase_enquiry_header_his CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+ALTER TABLE purchase_enquiry_header     CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE purchase_enquiry_header     CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+
+ALTER TABLE purchase_enquiry_item_his CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE purchase_enquiry_item_his CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+ALTER TABLE purchase_enquiry_item     CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE purchase_enquiry_item     CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+
+ALTER TABLE sale_enquiry_header_his CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE sale_enquiry_header_his CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+ALTER TABLE sale_enquiry_header     CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE sale_enquiry_header     CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+
+ALTER TABLE sale_enquiry_item_his CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE sale_enquiry_item_his CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+ALTER TABLE sale_enquiry_item     CHANGE orderBeginDate beginDate DATE DEFAULT NULL COMMENT '订单开始日期';
+ALTER TABLE sale_enquiry_item     CHANGE orderEndDate   endDate   DATE DEFAULT NULL COMMENT '订单结束日期';
+
+--------------------------------------------------------------------------------------------------
+处理：审批策略stretegyCode
+
+sql脚本：
+
+ALTER TABLE `sale_enquiry_header`         MODIFY COLUMN stretegyCode VARCHAR(30);  
+ALTER TABLE `sale_enquiry_item`           MODIFY COLUMN stretegyCode VARCHAR(30);  
+ALTER TABLE `purchase_enquiry_header`     MODIFY COLUMN stretegyCode VARCHAR(30);  
+ALTER TABLE `purchase_enquiry_item`       MODIFY COLUMN stretegyCode VARCHAR(30);  
+ALTER TABLE purchase_enquiry_header ADD stretegyCode VARCHAR(30); 
+ALTER TABLE purchase_enquiry_header ADD flowCode VARCHAR(4);
+ALTER TABLE purchase_enquiry_header ADD auditStatus INT(11);
+
+--------------------------------------------------------------------------------------------------
+处理：审批状态
+
+sql脚本：
+
+ALTER TABLE sale_enquiry_header     DROP COLUMN approveStatus ;
+ALTER TABLE sale_enquiry_header_his DROP COLUMN approveStatus ;
+ALTER TABLE sale_enquiry_item       DROP COLUMN approveStatus ;
+ALTER TABLE sale_enquiry_item_his   DROP COLUMN approveStatus ;
+ALTER TABLE sale_enquiry_material   DROP COLUMN approveStatus ;
+
+ALTER TABLE purchase_enquiry_header      DROP COLUMN approveStatus ;
+ALTER TABLE purchase_enquiry_header_his  DROP COLUMN approveStatus ;
+ALTER TABLE purchase_enquiry_item        DROP COLUMN approveStatus ;
+ALTER TABLE purchase_enquiry_item_his    DROP COLUMN approveStatus ;
+ALTER TABLE purchase_enquiry_material    DROP COLUMN approveStatus ;
+ALTER TABLE purchase_set_enquiry_header  DROP COLUMN approveStatus ;
+
+1，如果有auditStatus就删除approveStatus
+2，如果没有auditStatus就删除approveStatus改变为auditStatus
+
+ALTER TABLE sale_enquiry_header_his ADD auditStatus INT(11);  
+ALTER TABLE sale_enquiry_material   ADD auditStatus INT(11);  
+ALTER TABLE sale_enquiry_item_his   ADD auditStatus INT(11);  
+
+ALTER TABLE purchase_enquiry_header_his ADD auditStatus INT(11);  
+ALTER TABLE purchase_enquiry_item_his   ADD auditStatus INT(11);  
+ALTER TABLE purchase_enquiry_material   ADD auditStatus INT(11);  
+ALTER TABLE purchase_set_enquiry_header   ADD auditStatus INT(11);
+
+mysql Error Code : 1060 Duplicate column name 'ID' 
+这个错误是说有重复的字段ID了，当时以为是表的有重复字段或是数据中有重复ID数据了，其实不是，错误是在sql语句中
+
+注意：列自定义
+--------------------------------------------------------------------------------------------------
+表单文件列自定义
+DELETE FROM `els_db`.`els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainFile';
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','FBK2','i18n_common_title_fileSource:文件来源','7','center','string','','N','N','N','1','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','fileName','i18n_common_label_filename:文件名称','10','center','string','','N','N','N','2','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','fileType','i18n_common_label_filetype:文件类型','4','center','string','','N','Y','N','3','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','toElsAccount','i18n_label_purchaseCode:供应商编码','7','center','string','','N','N','N','4','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','toCompanyName','i18n_enquiry_label_supplier:供应商','11','center','string','','N','N','N','5','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','purchaseMaterialNumber','i18n_common_title_materialnumber:物料编码','7','center','string','','N','N','N','6','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','purchaseMaterialDesc','i18n_common_title_materialdescribe:物料描述','7','center','string','','N','N','N','7','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','logtime','i18n_common_schedulelogtime:时间戳(进度)','7','center','string','','N','Y','N','8','','formatDate','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainFile','remark','i18n_additionCost_remark:备注','7','center','string','','N','Y','N','9','','','N');
+select * FROM `els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainFile';
+物料列自定义
+DELETE FROM `els_db`.`els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainMaterial';
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','clickDisable','i18n_common_label_operationType:操作类型','5','center','string','','N','N','N','1','','selColItem','Y');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','purchaseOrderNumber','i18n_common_label_requisitionnumber:请求单号','11','center','string','','N','N','N','2','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','orderItemNumber','i18n_common_title_lineitemnumber:行项目号','7','center','string','','N','N','N','3','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','materialNumber','i18n_common_title_materialnumber:物料编码','11','center','string','','N','N','N','4','','initInputMaterial','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','materialDesc','i18n_common_title_materialdescribe:物料描述','11','center','string','','N','N','N','5','','initInputMaterial','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','factory','i18n_common_title_factory:工厂','7','center','string','','N','N','N','6','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','materialSpecification','i18n_common_title_fbk20:采购方物料规格','7','center','string','','N','N','N','6','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','materialGroup','i18n_common_title_materialgroup:物料组','7','center','string','','N','N','N','6','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','stockPoint','i18n_common_title_storagelocation:库存地点','7','center','string','','N','N','N','7','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','itemClasses','i18n_common_title_itemclasses:项目类别','7','center','string','','N','Y','N','8','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','quantity','i18n_common_title_quantityrequired:需求数量','7','center','string','','N','N','N','9','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','requestDate','i18n_common_title_requestdate:请求日期','7','center','string','','N','N','N','9','','formatDate','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','deliveryDate','i18n_common_title_deliverydate:需求日期','7','center','string','','N','N','N','9','','formatDate','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','unitQuantity','i18n_common_title_unitofmeasurement:计量单位','7','center','string','','N','N','N','10','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','priceMetricQuantity','i18n_common_title_valuationUOM:计价度量单位','9','center','string','','N','N','N','12','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','priceQuantity','i18n_common_title_valuateunit:计价单位','9','center','string','','N','N','N','13','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','quoteMethod','i18n_common_title_quotemethod:报价方式','7','center','string','','N','N','N','14','','initQuoteMethod','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','orderStatus','i18n_label_orderStatus:订单状态','7','center','string','','N','N','N','15','','rendererOrderStatus','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','auditStatus','i18n_common_auditstatus:审批状态','7','center','string','','N','N','N','15','','rendererauditStatus','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','accessoryRequire','i18n_common_title_accessoryrequire:附件需求','7','center','string','','N','N','N','18','','initAccessoryRequire','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','purchaseType','i18n_common_title_procurementtype:采购类型','7','center','string','','N','N','N','19','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','property1','i18n_common_title_attribute1:属性1','7','center','string','','N','N','N','20','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','property2','i18n_common_title_attribute2:属性2','7','center','string','','N','N','N','23','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','property3','i18n_common_title_attribute3:属性3','7','center','string','','N','N','N','24','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','property4','i18n_common_title_attribute4:属性4','7','center','string','','N','N','N','25','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','property5','i18n_common_title_attribute5:属性5','7','center','string','','N','N','N','26','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','currency','i18n_common_title_currency:币别','7','center','string','','N','N','N','39','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量','7','center','string','','N','N','N','40','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','minPackQuantity','i18n_common_title_minpackquantity:最小包装数','7','center','string','','N','N','N','41','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','cycle','i18n_common_title_purchasecycle:采购周期','7','center','string','','N','N','N','42','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','priceIncludingVat','i18n_common_title_priceincludingtax:含税价格','7','center','string','','N','N','N','43','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','purchaseGroup','i18n_enquiry_title_purchasegroup:采购组','7','center','string','','N','N','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','price','i18n_common_title_notincludingtaxprice:不含税价','7','center','string','','N','N','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','infinite','i18n_common_title_unlimitedtolerance:无限制容差','7','center','string','','N','N','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','maxTolerance','i18n_common_title_excessivetolerance:超量容差','7','center','string','','N','N','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','remark','i18n_common_title_remarks:备注','7','center','string','','N','N','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','changeFlag','changeFlag','7','center','string','','N','Y','N','44','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainMaterial','minTolerance','i18n_common_title_lackoftolerance:不足容差','7','center','string','','N','N','N','44','','','N');
+select * FROM `els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainMaterial';
+行列自定义
+DELETE FROM `els_db`.`els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainItem';
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','priceSelected','i18n_common_label_operationType:操作类型','5','center','string','','N','N','N','1','','initPriceSelected','Y');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','elsSubAccount','i18n_common_label_elsSubAccount:子帐号','5','center','string','','N','Y','N','2','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','materialLineNumber','i18n_common_title_materialLineNumber:行号','4','center','string','','N','N','N','3','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','materialNumber','i18n_common_title_materialnumber:物料编码','7','center','string','','N','N','N','4','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','materialDesc','i18n_common_title_materialdescribe:物料描述','11','center','string','','N','N','N','5','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','toElsAccount','i18n_label_purchaseCode:供应商编码','7','center','string','','N','N','N','6','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','toCompanyName','i18n_common_title_suppliername:供应商名称','7','center','string','','N','N','N','7','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','orderDate','i18n_common_title_orderDate:价格有效期','7','center','string','','N','N','N','8','','initOrderDate','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','orderStatus','i18n_label_orderStatus:订单状态','7','center','string','','N','N','N','9','','rendererOrderStatus','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','auditStatus','i18n_common_auditstatus:审批状态','7','center','string','','N','N','N','10','','rendererAuditStatus','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','quantity','i18n_common_title_purchasequantity:采购数量','7','center','string','','N','N','N','11','','initQuantity','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','priceIncludingVat','i18n_common_title_priceincludingtax:含税价格','7','center','string','','N','N','N','12','','initPriceIncludingVat','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','price','i18n_common_title_notincludingtaxprice:不含税价','7','center','string','','N','N','N','13','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','currency','i18n_common_title_currency:币别','7','center','string','','N','N','N','14','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','purchaseType','i18n_common_title_procurementtype:采购类型','7','center','string','','N','N','N','15','','rendererPurchaseType','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','property1','i18n_common_title_attribute1:属性1','7','center','string','','N','N','N','16','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','property2','i18n_common_title_attribute2:属性2','7','center','string','','N','N','N','17','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','property3','i18n_common_title_attribute3:属性3','7','center','string','','N','N','N','18','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','property4','i18n_common_title_attribute4:属性4','7','center','string','','N','N','N','19','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','property5','i18n_common_title_attribute5:属性5','7','center','string','','N','N','N','20','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量','7','center','string','','N','N','N','21','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','minPackQuantity','i18n_common_title_minpackquantity:最小包装数','7','center','string','','N','N','N','22','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','cycle','i18n_common_title_purchasecycle:采购周期','7','center','string','','N','N','N','23','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','minTolerance','i18n_common_title_lackoftolerance:不足容差','7','center','string','','N','N','N','24','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','maxTolerance','i18n_common_title_excessivetolerance:超量容差','7','center','string','','N','N','N','25','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','infinite','i18n_common_title_unlimitedtolerance:无限制容差','7','center','string','','N','N','N','26','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','remark','i18n_common_title_remarks:备注','7','center','string','','N','N','N','27','','','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','logtime','i18n_label_logtime:时间戳','10','center','string','','N','N','N','28','','formatDateTime','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','costItemCode','i18n_coststructure_title_costitemcode:成本项目代码','7','center','string','','N','N','N','29','','initCostItemCode','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','costItemName','i18n_coststructure_title_costitemname:成本项目名称','7','center','string','','N','N','N','30','','initCostItemName','N');
+insert into `els_table_column` (`tableCode`, `columnCode`, `columnName`, `columnWidth`, `columnAlign`, `dataType`, `dataFormat`, `canEdit`, `isHidden`, `canSort`, `sortOrder`, `editPropertyCode`, `renderer`, `clickDisable`) values('purchaseEnquiryBargainItem','costItemAmount','i18n_coststructure_title_costitemamount:成本项目金额','7','center','string','','N','N','N','31','','initCostItemAmount','N');
+select * FROM `els_table_column` WHERE `tableCode` = 'purchaseEnquiryBargainItem';
+
+报价列自定义
+delete from `els_table` where tableCode = 'sale_enquiry_header';
+delete from `els_table` where tableCode = 'sale_enquiry_header_his';
+delete from `els_table` where tableCode = 'sale_enquiry_item';
+delete from `els_table` where tableCode = 'sale_enquiry_item_his';
+delete from `els_table` where tableCode = 'purchaseEnquiryOrderReport';
+delete from `els_table` where tableCode = 'saleEnquiryOrderReport';
+
+insert  into `els_table`(`tableCode`,`tableName`,`tableDesc`) 
+values ('sale_enquiry_header'     ,'销售报价头信息','销售报价头信息'),
+       ('sale_enquiry_header_his' ,'销售报价历史头信息','销售报价历史头信息'),
+       ('sale_enquiry_item'       ,'销售报价行信息','销售报价行信息'),
+       ('sale_enquiry_item_his'   ,'销售报价历史行信息','销售报价历史行信息'),
+       ('purchaseEnquiryOrderReport' ,'采购询价单报表','采购询价单报表'),
+       ('saleEnquiryOrderReport'     ,'销售报价单报表','销售报价单报表');
+
+delete from `els_table_column` where `tableCode` = 'sale_enquiry_header'        ;
+delete from `els_table_column` where `tableCode` = 'sale_enquiry_header_his'    ;
+delete from `els_table_column` where `tableCode` = 'sale_enquiry_item'          ;
+delete from `els_table_column` where `tableCode` = 'sale_enquiry_item_his'      ;
+delete from `els_table_column` where `tableCode` = 'purchaseEnquiryOrderReport' ;
+delete from `els_table_column` where `tableCode` = 'saleEnquiryOrderReport'     ;
+
+insert  into `els_table_column`(`tableCode`,`columnCode`,`columnName`,`columnWidth`,`columnAlign`,`dataType`,`dataFormat`,`canEdit`,`isHidden`,`canSort`,`sortOrder`,`editPropertyCode`,`renderer`,`clickDisable`) 
+values ('sale_enquiry_header','enquiryDesc','i18n_enquiry_title_describe:描述',16,'center','string','','N','N','N',14,'','','N'),
+('sale_enquiry_header','beginDate','i18n_enquiry_title_enquirybegindate:询价开始日期',10,'center','date','','N','N','N',15,'','','N'),
+('sale_enquiry_header','callSupplieCount','i18n_enquiry_title_invitesuppliercount:邀请供应商数量',7,'center','number','','N','N','N',22,'','','N'),
+('sale_enquiry_header','backSupplieCount','i18n_enquiry_title_replysuppliercount:回复供应商数量',7,'center','number','','N','N','N',23,'','','N'),
+('sale_enquiry_header','remark','i18n_common_title_remarks:备注',7,'center','string','','N','N','N',24,'','','N'),
+('sale_enquiry_header','FBK30','i18n_common_title_totalamount:报价总金额',7,'center','string','','N','N','N',27,'','','N'),
+('sale_enquiry_header','FBK4','i18n_common_title_responserofpurchase:采购方负责人',7,'center','string','','N','Y','N',25,'','','N'),
+('sale_enquiry_header','FBK5','i18n_common_title_responserofsupplier:销售方负责人',7,'center','string','','N','Y','N',26,'','','N'),
+('sale_enquiry_header','orderSendStatus','i18n_label_orderSendStatus:订单的发送状态',6,'center','number','','N','N','N',11,'','','N'),
+('sale_enquiry_header','auditStatus','i18n_enquiry_title_auditStatus:审核状态',6,'center','number','','N','N','N',12,'','','N'),
+('sale_enquiry_header','selectStatus','i18n_enquiry_SelectStatus:中标状态',6,'center','dictionary','0:i18n_enquiry_select_isfree;1:i18n_enquiry_select_bid;2:i18n_enquiry_select_nobid','N','N','N',13,'','','N'),
+('sale_enquiry_header','auditStatus','i18n_common_auditstatus:审批状态',7,'center','number','','N','N','N',30,'','rendererAuditStatus','N'),
+('sale_enquiry_header','FBK6','i18n_enquiry_title_operation:操作',5,'center','string','','N','N','N',31,'','','N'),
+('sale_enquiry_header','payTermsCode','i18n_common_title_paymentWay:付款条件代码',7,'center','string','','N','N','N',18,'','','N'),
+('sale_enquiry_header','purchaseOrganization','i18n_common_label_purchaseorganization:采购组织',7,'center','string','','N','N','N',19,'','','N'),
+('sale_enquiry_header','purchaseGroup','i18n_enquiry_title_purchasegroup:采购组',7,'center','string','','N','N','N',20,'','','N'),
+('sale_enquiry_header','maker','i18n_enquiry_title_maker:制单人',7,'center','string','','N','N','N',21,'','','N'),
+('sale_enquiry_header','endDate','i18n_enquiry_title_enquiryenddate:询价结束日期 ',10,'center','date','','N','N','N',16,'','','N'),
+('sale_enquiry_header','currency','i18n_label_currency:货币',7,'center','string','','N','N','N',17,'','','N'),
+('sale_enquiry_header','elsAccount','i18n_label_elsAccount:ELS号码',7,'center','string','','N','N','N',1,'','','N'),
+('sale_enquiry_header','toElsAccount','i18n_label_additionCost_toElsAccount:对方ELS号',7,'center','string','','N','N','N',3,'','','N'),
+('sale_enquiry_header','toCompanyShortName','i18n_purchaser:采购商名称',7,'center','string','','N','N','N',4,'','','N'),
+('sale_enquiry_header','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:询价单号',9,'center','string','','N','N','N',5,'','','N'),
+('sale_enquiry_header','supplierEnquiryNumber','供应商询价单号',6,'center','string','','N','N','N',6,'','','N'),
+('sale_enquiry_header','orderType','i18n_enquiry_title_enquirytype:询价类型',6,'center','dictionary','0:i18n_enquiry_select_enquirytype_market;1:i18n_enquiry_select_enquirytype_material;2:i18n_enquiry_select_enquirytype_texture','N','N','N',7,'','','N'),
+('sale_enquiry_header','logtime','i18n_label_logtime:时间戳',7,'center','date','','N','N','N',8,'','','N'),
+('sale_enquiry_header','stretegyCode','审批策略',7,'center','string','','N','N','N',28,'','','N'),
+('sale_enquiry_header','flowCode','审批过程',7,'center','string','','N','N','N',29,'','','N'),
+('sale_enquiry_header','companyCode','i18n_additionCost_companyCode:公司代码',7,'center','string','','N','N','N',9,'','','N'),
+('sale_enquiry_header','orderStatus','i18n_enquiry_title_enquirystatus:询价单状态',6,'center','dictionary','0:i18n_enquiry_select_enquirystatus_create;1:i18n_enquiry_select_enquirystatus_quoteproceed;3:i18n_enquiry_select_enquirystatus_approveproceed;4:i18n_enquiry_select_enquirystatus_againquote;5:i18n_enquiry_select_enquirystatus_havepricing;6:i18n_enquiry_select_enquirystatus_rejected;7:i18n_enquiry_select_enquirystatus_finished;8:i18n_enquiry_select_enquirystatus_quotedprice','N','N','N',10,'','','N'),
+('sale_enquiry_header_his','elsAccount','i18n_label_elsAccount:ELS号码',7,'center','string',NULL,'N','N','N',1,NULL,NULL,'N'),
+('sale_enquiry_header_his','toElsAccount','i18n_label_additionCost_toElsAccount:对方ELS号',7,'center','string',NULL,'N','N','N',3,NULL,NULL,'N'),
+('sale_enquiry_header_his','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:采购询价单号',7,'center','string',NULL,'N','N','N',5,NULL,NULL,'N'),
+('sale_enquiry_header_his','logtime','i18n_label_logtime:时间戳',7,'center','date',NULL,'N','N','N',8,NULL,NULL,'N'),
+('sale_enquiry_header_his','toCompanyShortName','i18n_purchaser:采购商名称',7,'center','string',NULL,'N','N','N',4,NULL,NULL,'N'),
+('sale_enquiry_header_his','supplierEnquiryNumber','i18n_enquiry_title_enquirynumber:供应商询价单号',7,'center','string',NULL,'N','N','N',6,NULL,NULL,'N'),
+('sale_enquiry_header_his','orderType','i18n_label_orderType:订单类型',7,'center','number',NULL,'N','N','N',7,NULL,NULL,'N'),
+('sale_enquiry_header_his','companyCode','i18n_additionCost_companyCode:公司代码',7,'center','string',NULL,'N','N','N',9,NULL,NULL,'N'),
+('sale_enquiry_header_his','orderStatus','i18n_enquiry_title_enquirystatus:订单的状态',7,'center','number',NULL,'N','N','N',10,NULL,NULL,'N'),
+('sale_enquiry_header_his','orderSendStatus','i18n_label_orderSendStatus:订单的发送状态',7,'center','number',NULL,'N','N','N',11,NULL,NULL,'N'),
+('sale_enquiry_header_his','auditStatus','i18n_enquiry_title_auditStatus:审核状态',7,'center','number',NULL,'N','N','N',12,NULL,NULL,'N'),
+('sale_enquiry_header_his','selectStatus','i18n_enquiry_SelectStatus:中标状态',7,'center','number',NULL,'N','N','N',13,NULL,NULL,'N'),
+('sale_enquiry_header_his','enquiryDesc','i18n_common_label_describe:描述',7,'center','string',NULL,'N','N','N',14,NULL,NULL,'N'),
+('sale_enquiry_header_his','beginDate','i18n_enquiryReport_title_orderStartDate:订单开始日期',7,'center','date',NULL,'N','N','N',15,NULL,NULL,'N'),
+('sale_enquiry_header_his','endDate','i18n_enquiryReport_title_endDate:订单结束日期 ',7,'center','date',NULL,'N','N','N',16,NULL,NULL,'N'),
+('sale_enquiry_header_his','currency','i18n_label_currency:货币',7,'center','string',NULL,'N','N','N',17,NULL,NULL,'N'),
+('sale_enquiry_header_his','payTermsCode','i18n_common_title_paymentWay:付款条件代码',7,'center','string',NULL,'N','N','N',18,NULL,NULL,'N'),
+('sale_enquiry_header_his','purchaseOrganization','i18n_common_label_purchaseorganization:采购组织',7,'center','string',NULL,'N','N','N',19,NULL,NULL,'N'),
+('sale_enquiry_header_his','purchaseGroup','i18n_enquiry_title_purchasegroup:采购组',7,'center','string',NULL,'N','N','N',20,NULL,NULL,'N'),
+('sale_enquiry_header_his','maker','i18n_enquiry_title_maker:制单人',7,'center','string',NULL,'N','N','N',21,NULL,NULL,'N'),
+('sale_enquiry_header_his','callSupplieCount','i18n_enquiry_title_invitesuppliercount:邀请供应商数量',7,'center','number',NULL,'N','N','N',22,NULL,NULL,'N'),
+('sale_enquiry_header_his','backSupplieCount','i18n_enquiry_title_replysuppliercount:回复供应商数量',7,'center','number',NULL,'N','N','N',23,NULL,NULL,'N'),
+('sale_enquiry_header_his','remark','i18n_common_title_remarks:备注',7,'center','string',NULL,'N','N','N',24,NULL,NULL,'N'),
+('sale_enquiry_header_his','FBK4','i18n_common_title_responserofpurchase:采购方负责人',7,'center','string',NULL,'N','N','N',25,NULL,NULL,'N'),
+('sale_enquiry_header_his','FBK5','i18n_common_title_responserofsupplier:销售方负责人',7,'center','string',NULL,'N','N','N',26,NULL,NULL,'N'),
+('sale_enquiry_header_his','FBK30','i18n_common_title_totalamount:报价总金额',7,'center','string',NULL,'N','N','N',27,NULL,NULL,'N'),
+('sale_enquiry_item','remark','i18n_common_title_remarks:备注',7,'center','string','','Y','N','N',43,'','initInput','N'),
+('sale_enquiry_item','taxesCode','i18n_common_title_taxRate:税率',7,'center','string','','Y','N','N',44,'','initInputDouble','N'),
+('sale_enquiry_item','materialSpecification','i18n_common_title_materialSpecification:物料规格',7,'center','string','','N','N','N',53,'','','N'),
+('sale_enquiry_item','accessoryRequire','i18n_common_title_accessoryrequire:附件要求',7,'center','number','','N','N','N',42,'','function(val){	return \'<select class=\"selectAdd\" style=\"width: 78px; height:20px; padding:0\"><option value=\"0\">附件可选</option><option value=\"1\">附件必选</option></select>\'; }','N'),
+('sale_enquiry_item','minTolerance','i18n_common_minimum_error:最小误差',7,'center','string','','N','N','N',31,'','','N'),
+('sale_enquiry_item','maxTolerance','i18n_common_maximum_error:最大误差',7,'center','string','','N','N','N',32,'','','N'),
+('sale_enquiry_item','infinite','i18n_common_shipping_method:运送方式',7,'center','number','','N','N','N',33,'','','N'),
+('sale_enquiry_item','unitQuantity','i18n_additionCost_quantityUnit:数量单位',7,'center','string','','N','N','N',34,'','','N'),
+('sale_enquiry_item','unitPrice','i18n_additionCost_priceMeasuringUnit:价格单位',7,'center','string','','N','N','N',35,'','','N'),
+('sale_enquiry_item','unitMeasure','i18n_common_title_valuationUOM:度量单位',7,'center','string','','N','N','N',36,'','','N'),
+('sale_enquiry_item','elsAccount','i18n_label_elsAccount:ELS号码',7,'center','string','','N','N','N',1,'','','N'),
+('sale_enquiry_item','toElsAccount','i18n_label_additionCost_toElsAccount:对方ELS号',7,'center','string','','N','N','N',3,'','','N'),
+('sale_enquiry_item','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:采购询价单号',9,'center','string','','N','N','N',4,'','','N'),
+('sale_enquiry_item','materialLineNumber','i18n_common_title_materialLineNumber:物料行编号',7,'center','number','','N','N','N',5,'','','N'),
+('sale_enquiry_item','supplierEnquiryNumber','供应商询价单号',7,'center','string','','N','N','N',6,'','','N'),
+('sale_enquiry_item','purchaseOrderLineProjectNumber','i18n_delivery_title_materialvoucheritemnumber:订单的行项目编号',7,'center','string','','N','N','N',7,'','','N'),
+('sale_enquiry_item','fbk6','i18n_common_title_setcostconstitute:设置成本',6,'center','string','','N','N','N',56,'','function (val,item,rowIndex){ return showCostDetail(val,item,rowIndex);}','N'),
+('sale_enquiry_item','FBK1','i18n_common_title_setladder:设置阶梯',6,'center','string','','N','N','N',52,'','function (val,item,rowIndex){return ladderPriceDetail(val,item,rowIndex);}','N'),
+('sale_enquiry_item','fbk8','i18n_delivery_lable_salematerialdesc:销售商物料名称',7,'center','string','','Y','N','N',51,'','initInput','N'),
+('sale_enquiry_item','fbk7','i18n_delivery_lable_salematerialnumber:销售商物料编码',7,'center','string','','Y','N','N',50,'','initInput','N'),
+('sale_enquiry_item','auditStatus','i18n_enquiry_title_auditStatus:审核状态',7,'center','number','','N','N','N',39,'','','N'),
+('sale_enquiry_item','priceValidBeginDate','i18n_common_price_effective_begin_date:价格有效开始日期',7,'center','date','','Y','N','N',45,'','function(val,item,index){ if (!val) {val = new Date().format(\"yyyy-MM-dd\");} else if (val!=\"\"&&val.length != 10) {val = new Date(val).format(\"yyyy-MM-dd\");}  return \"<input name=\'purchaseOrderItemList[][priceValidBeginDate]\' class=\' Wdate\' onfocus=\'WdatePicker()\' type=\'text\' style=\'font-size: 12px;width: 86px;height: 24px;\' id=\'priceValidBeginDate_\"+index+\"\' value=\'\"+val+\"\'/>\";}','N'),
+('sale_enquiry_item','quantity','i18n_common_title_quantity:采购订单数量',7,'center','number','','N','N','N',18,'','','N'),
+('sale_enquiry_item','purchaseType','i18n_common_title_procurementtype:采购类型',7,'center','dictionary','0:外购;1:外协;2:寄售票员;3:其他;','N','N','N',19,'','','N'),
+('sale_enquiry_item','property1','i18n_common_title_attribute1:属性1',7,'center','string','','N','N','N',20,'','','N'),
+('sale_enquiry_item','quoteMethod','i18n_common_title_quotemethod:报价方式',7,'center','number','','N','N','N',40,'','quoteMethod','N'),
+('sale_enquiry_item','maker','i18n_enquiry_title_maker:制单人',7,'center','string','','N','N','N',41,'','','N'),
+('sale_enquiry_item','deliveryDate','i18n_common_deliverydate:交货日期',7,'center','date','','N','N','N',37,'','','N'),
+('sale_enquiry_item','orderStatus','i18n_enquiry_title_enquirystatus:订单的状态',7,'center','dictionary','0:i18n_enquiry_select_enquirystatus_create;1:i18n_enquiry_select_enquirystatus_quoteproceed;3:i18n_enquiry_select_enquirystatus_approveproceed;4:i18n_enquiry_select_enquirystatus_againquote;5:i18n_enquiry_select_enquirystatus_havepricing;6:i18n_enquiry_select_enquirystatus_rejected;7:i18n_enquiry_select_enquirystatus_finished;8:i18n_enquiry_select_enquirystatus_quotedprice','N','N','N',38,'','','N'),
+('sale_enquiry_item','priceValidEndDate','i18n_common_price_effective_end_date:价格有效结束日期',7,'center','date','','Y','N','N',46,'','function(val,item,index){ if (!val) {val = \"\";}	if (val!=\"\"&&val.length != 10) {val = new Date(val).format(\"yyyy-MM-dd\");}	return \"<input name=\'purchaseOrderItemList[][priceValidEndDate]\' class=\' Wdate\' onfocus=\'WdatePicker()\' type=\'text\' style=\'font-size: 12px;width: 86px;height: 24px;\' id=\'priceValidEndDate_\"+index+\"\' value=\'\"+val+\"\'/>\";}_\"+index+\"\' value=\'\"+val+\"\'/>\";}','N'),
+('sale_enquiry_item','fbk3','i18n_common_set_up_attachment:设置附件',7,'center','string','','N','N','N',55,'','function (val,item,index){ return setAccessory(val,item,index);}','N'),
+('sale_enquiry_item','gridValue','i18n_purchaseorderhis_title_gridvalue:网格值',7,'center','string','','N','N','N',8,'','','N'),
+('sale_enquiry_item','FBK2','i18n_common_quotation_record:报价记录',7,'center','string','','N','N','N',54,'','queryHis','N'),
+('sale_enquiry_item','beginDate','i18n_enquiryReport_title_orderStartDate:订单开始日期',7,'center','date','','N','N','N',9,'','','N'),
+('sale_enquiry_item','purchaseRequestDate','i18n_enquiryReport_title_purchaseApplyDate:采购申请日期',7,'center','date','','N','N','N',13,'','','N'),
+('sale_enquiry_item','purchaseDeliveryDate','i18n_enquiryReport_title_purchaseRequireDate:采购要货日期',7,'center','date','','N','N','N',14,'','function(val,item,index){ if (!val) {val = \"\";}	if (val!=\"\"&&val.length != 10) {val = new Date(val).format(\"yyyy-MM-dd\");} 	return \"<span>\" + val +\"</span>\"; }','N'),
+('sale_enquiry_item','price','i18n_common_title_notincludingtaxprice:不含税价',7,'center','number','','Y','N','N',28,'','initInputDouble','N'),
+('sale_enquiry_item','minPackQuantity','i18n_common_title_minpackquantity:最小包装数',7,'center','number','','Y','N','N',26,'','initInputDouble','N'),
+('sale_enquiry_item','cycle','i18n_common_title_purchasecycle:采购周期',7,'center','number','','N','N','N',27,'','','N'),
+('sale_enquiry_item','logtime','i18n_label_logtime:时间戳',7,'center','date','','N','N','N',15,'','','N'),
+('sale_enquiry_item','materialNumber','i18n_common_label_salematerialnumber:物料号 ',7,'center','string','','N','N','N',16,'','','N'),
+('sale_enquiry_item','materialDesc','i18n_materialRelation_title_saleMaterialDescribe:物料描述',7,'center','string','','N','N','N',17,'','','N'),
+('sale_enquiry_item','endDate','i18n_enquiryReport_title_endDate:订单结束日期',7,'center','date','','N','N','N',10,'','','N'),
+('sale_enquiry_item','purchaseRequestNumber','i18n_enquiryReport_title_purchaseOrderNumber:采购申请单号(PR号）',7,'center','string','','N','N','N',11,'','','N'),
+('sale_enquiry_item','priceIncludingVat','i18n_common_title_priceincludingtax:含税价',7,'center','number','','Y','N','N',29,'','initInputDouble','N'),
+('sale_enquiry_item','property2','i18n_common_title_attribute2:属性2',7,'center','string','','N','N','N',21,'','','N'),
+('sale_enquiry_item','property3','i18n_common_title_attribute3:属性3',7,'center','string','','N','N','N',22,'','','N'),
+('sale_enquiry_item','property4','i18n_common_title_attribute4:属性4',7,'center','string','','N','N','N',23,'','','N'),
+('sale_enquiry_item','purchaseRequestLineProjectNumber','i18n_enquiryReport_title_purchaselineNumber:采购申请行项目号',7,'center','string','','N','N','N',12,'','','N'),
+('sale_enquiry_item','currency','i18n_common_title_currency:币别',7,'center','string','','N','N','N',30,'','','N'),
+('sale_enquiry_item','property5','i18n_common_title_attribute5:属性5',7,'center','string','','N','N','N',24,'','','N'),
+('sale_enquiry_item','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量',7,'center','number','','Y','N','N',25,'','initInputDouble','N'),
+('sale_enquiry_item','flowCode','审批过程',7,'center','string','','N','N','N',48,'','','N'),
+('sale_enquiry_item','auditStatus','审批状态',7,'center','number','','N','N','N',49,'','','N'),
+('sale_enquiry_item','stretegyCode','审批策略',7,'center','string','','N','N','N',47,'','','N'),
+('sale_enquiry_item_his','elsAccount','i18n_label_elsAccount:ELS号码',7,'center','string',NULL,'N','N','N',1,NULL,NULL,'N'),
+('sale_enquiry_item_his','toElsAccount','i18n_label_additionCost_toElsAccount:对方ELS号',7,'center','string',NULL,'N','N','N',3,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:采购询价单号',9,'center','string',NULL,'N','N','N',4,NULL,NULL,'N'),
+('sale_enquiry_item_his','materialLineNumber','i18n_common_title_materialLineNumber:物料行编号',7,'center','number',NULL,'N','N','N',5,NULL,NULL,'N'),
+('sale_enquiry_item_his','logtime','i18n_label_logtime:时间戳',7,'center','date',NULL,'N','N','N',6,NULL,NULL,'N'),
+('sale_enquiry_item_his','supplierEnquiryNumber','供应商询价单号',7,'center','string',NULL,'N','N','N',7,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseOrderLineProjectNumber','i18n_common_title_lineitemnumber:订单的行项目编号',7,'center','string',NULL,'N','N','N',8,NULL,NULL,'N'),
+('sale_enquiry_item_his','gridValue','i18n_purchaseorderhis_title_gridvalue:网格值',7,'center','string',NULL,'N','N','N',9,NULL,NULL,'N'),
+('sale_enquiry_item_his','beginDate','i18n_enquiryReport_title_orderStartDate:订单开始日期',7,'center','date',NULL,'N','N','N',10,NULL,NULL,'N'),
+('sale_enquiry_item_his','endDate','i18n_enquiryReport_title_endDate:订单结束日期',7,'center','date',NULL,'N','N','N',11,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseRequestNumber','i18n_enquiryReport_title_purchaseOrderNumber:采购申请单号(PR号）',7,'center','string',NULL,'N','N','N',12,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseRequestLineProjectNumber','i18n_enquiryReport_title_purchaselineNumber:采购申请行项目号',7,'center','string',NULL,'N','N','N',13,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseRequestDate','i18n_enquiryReport_title_purchaseApplyDate:采购申请日期',7,'center','date',NULL,'N','N','N',14,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseDeliveryDate','i18n_enquiryReport_title_purchaseRequireDate:采购要货日期',7,'center','date',NULL,'N','N','N',15,NULL,NULL,'N'),
+('sale_enquiry_item_his','quantity','i18n_common_title_quantity:采购订单数量',7,'center','number',NULL,'N','N','N',16,NULL,NULL,'N'),
+('sale_enquiry_item_his','materialNumber','i18n_common_label_salematerialnumber:物料号  ',7,'center','string',NULL,'N','N','N',17,NULL,NULL,'N'),
+('sale_enquiry_item_his','materialDesc','i18n_materialRelation_title_saleMaterialDescribe:物料描述',7,'center','string',NULL,'N','N','N',18,NULL,NULL,'N'),
+('sale_enquiry_item_his','purchaseType','i18n_common_title_procurementtype:采购类型',7,'center','number',NULL,'N','N','N',19,NULL,NULL,'N'),
+('sale_enquiry_item_his','property1','i18n_common_title_attribute1:属性1',7,'center','string',NULL,'N','N','N',20,NULL,NULL,'N'),
+('sale_enquiry_item_his','property2','i18n_common_title_attribute2:属性2',7,'center','string',NULL,'N','N','N',21,NULL,NULL,'N'),
+('sale_enquiry_item_his','property3','i18n_common_title_attribute3:属性3',7,'center','string',NULL,'N','N','N',22,NULL,NULL,'N'),
+('sale_enquiry_item_his','property4','i18n_common_title_attribute4:属性4',7,'center','string',NULL,'N','N','N',23,NULL,NULL,'N'),
+('sale_enquiry_item_his','property5','i18n_common_title_attribute5:属性5',7,'center','string',NULL,'N','N','N',24,NULL,NULL,'N'),
+('sale_enquiry_item_his','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量',7,'center','number',NULL,'N','N','N',25,NULL,NULL,'N'),
+('sale_enquiry_item_his','minPackQuantity','i18n_common_title_minpackquantity:最小包装数',7,'center','number',NULL,'N','N','N',26,NULL,NULL,'N'),
+('sale_enquiry_item_his','cycle','i18n_common_title_purchasecycle:采购周期',7,'center','number',NULL,'N','N','N',27,NULL,NULL,'N'),
+('sale_enquiry_item_his','price','i18n_common_title_notincludingtaxprice:不含税价',7,'center','number',NULL,'N','N','N',28,NULL,NULL,'N'),
+('sale_enquiry_item_his','priceIncludingVat','i18n_common_title_priceincludingtax:含税价',7,'center','number',NULL,'N','N','N',29,NULL,NULL,'N'),
+('sale_enquiry_item_his','currency','i18n_common_title_currency:币别',7,'center','string',NULL,'N','N','N',30,NULL,NULL,'N'),
+('sale_enquiry_item_his','minTolerance','i18n_common_minimum_error:最小误差',7,'center','string',NULL,'N','N','N',31,NULL,NULL,'N'),
+('sale_enquiry_item_his','maxTolerance','i18n_common_maximum_error:最大误差',7,'center','string',NULL,'N','N','N',32,NULL,NULL,'N'),
+('sale_enquiry_item_his','infinite','i18n_common_shipping_method:运送方式',7,'center','number',NULL,'N','N','N',33,NULL,NULL,'N'),
+('sale_enquiry_item_his','unitQuantity','i18n_additionCost_quantityUnit:数量单位',7,'center','string',NULL,'N','N','N',34,NULL,NULL,'N'),
+('sale_enquiry_item_his','unitPrice','i18n_common_title_valuateunit:价格单位',7,'center','string',NULL,'N','N','N',35,NULL,NULL,'N'),
+('sale_enquiry_item_his','unitMeasure','i18n_common_title_valuationUOM:度量单位',7,'center','string',NULL,'N','N','N',36,NULL,NULL,'N'),
+('sale_enquiry_item_his','deliveryDate','i18n_common_deliverydate:交货日期',7,'center','date',NULL,'N','N','N',37,NULL,NULL,'N'),
+('sale_enquiry_item_his','orderStatus','i18n_enquiry_title_enquirystatus:订单的状态',7,'center','number',NULL,'N','N','N',38,NULL,NULL,'N'),
+('sale_enquiry_item_his','auditStatus','i18n_enquiry_title_auditStatus:审核状态',7,'center','number',NULL,'N','N','N',39,NULL,NULL,'N'),
+('sale_enquiry_item_his','quoteMethod','i18n_common_title_quotemethod:报价方式',7,'center','number',NULL,'N','N','N',40,NULL,NULL,'N'),
+('sale_enquiry_item_his','maker','i18n_enquiry_title_maker:制单人',7,'center','string',NULL,'N','N','N',41,NULL,NULL,'N'),
+('sale_enquiry_item_his','accessoryRequire','i18n_common_title_accessoryrequire:附件要求',7,'center','number',NULL,'N','N','N',42,NULL,NULL,'N'),
+('sale_enquiry_item_his','remark','i18n_common_title_remarks:备注',7,'center','string',NULL,'N','N','N',43,NULL,NULL,'N'),
+('sale_enquiry_item_his','cause','i18n_common_chanag_the_reason:变动原因',7,'center','string',NULL,'N','N','N',44,NULL,NULL,'N'),
+('sale_enquiry_item_his','taxesCode','i18n_common_title_taxCode:税费代码',7,'center','string',NULL,'N','N','N',45,NULL,NULL,'N'),
+('sale_enquiry_item_his','priceValidBeginDate','i18n_common_price_effective_begin_date:价格有效开始日期',7,'center','date',NULL,'N','N','N',46,NULL,NULL,'N'),
+('sale_enquiry_item_his','priceValidEndDate','i18n_common_price_effective_end_date:价格有效结束日期',7,'center','date',NULL,'N','N','N',47,NULL,NULL,'N'),
+('purchaseEnquiryOrderReport','cycle','i18n_common_title_purchasecycle:采购周期',7,'center','number','','N','N','N',25,'','','N'),
+('purchaseEnquiryOrderReport','price','i18n_common_title_priceincludingtax:含税价格',7,'center','number','','N','N','N',26,'','','N'),
+('purchaseEnquiryOrderReport','priceIncludingVat','i18n_common_title_notincludingtaxprice:不含税价',7,'center','number','','N','N','N',27,'','','N'),
+('purchaseEnquiryOrderReport','currency','i18n_common_title_currency:币别',7,'center','string','','N','N','N',28,'','','N'),
+('purchaseEnquiryOrderReport','minTolerance','i18n_common_title_lackoftolerance:不足容差',7,'center','number','','N','N','N',29,'','','N'),
+('purchaseEnquiryOrderReport','maxTolerance','i18n_common_title_excessivetolerance:超量容差',7,'center','number','','N','N','N',30,'','','N'),
+('purchaseEnquiryOrderReport','infinite','i18n_common_title_unlimitedtolerance:无限制容差',7,'center','number','','N','N','N',31,'','','N'),
+('purchaseEnquiryOrderReport','unitQuantity','i18n_common_title_unitofmeasurement:计量单位',7,'center','string','','N','N','N',32,'','','N'),
+('purchaseEnquiryOrderReport','unitPrice','i18n_common_title_unitofmeasurement:计量单位',7,'center','string','','N','N','N',33,'','','N'),
+('purchaseEnquiryOrderReport','unitMeasure','i18n_common_title_valuationUOM:计价度量单位',7,'center','string','','N','N','N',34,'','','N'),
+('purchaseEnquiryOrderReport','deliveryDate','i18n_common_deliverydate:交货日期',7,'center','date','','N','N','N',35,'','','N'),
+('purchaseEnquiryOrderReport','orderStatus','i18n_label_purchaseOrderStatus:采购订单状态',7,'center','number','0:新建 1:报价中 2:议价中 3:审批中 4:重报价 5:已定价 6:已拒绝 7:已结束 8:已报价 9:已选择','N','N','N',36,'','','N'),
+('purchaseEnquiryOrderReport','auditStatus','i18n_enquiry_title_auditStatus:审核状态',7,'center','number','0:未审核 1:审核通过 2:审核不通过','N','N','N',37,'','','N'),
+('purchaseEnquiryOrderReport','quoteMethod','i18n_common_title_quotemethod:报价方式',7,'center','number','0:常规报价 1:阶梯报价','N','N','N',38,'','','N'),
+('purchaseEnquiryOrderReport','maker','i18n_enquiry_title_maker:制单人',7,'center','string','','N','N','N',39,'','','N'),
+('purchaseEnquiryOrderReport','elsAccount','i18n_common_title_myelsaccount:我方ELS号',4,'center','string','','N','N','N',1,'','','N'),
+('purchaseEnquiryOrderReport','fullName','i18n_common_lable_companyname:公司名称',11,'center','string','','N','N','N',2,'','','N'),
+('purchaseEnquiryOrderReport','toElsAccount','i18n_label_additionCost_toElsAccount:对方ELS号',4,'center','string','','N','N','N',3,'','','N'),
+('purchaseEnquiryOrderReport','toCompanyName','i18n_common_title_suppliername:供应商名称',11,'center','string','','N','N','N',4,'','','N'),
+('purchaseEnquiryOrderReport','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:询价单号',7,'center','string','','N','N','N',5,'','','N'),
+('purchaseEnquiryOrderReport','beginDate','i18n_enquiryReport_title_orderStartDate:订单开始日期',7,'center','date','','N','N','N',6,'','','N'),
+('purchaseEnquiryOrderReport','endDate','i18n_enquiryReport_title_endDate:订单结束日期',7,'center','date','','N','N','N',7,'','','N'),
+('purchaseEnquiryOrderReport','purchaseRequestNumber','i18n_enquiryReport_title_purchaseOrderNumber:采购申请单号',7,'center','string','','N','N','N',8,'','','N'),
+('purchaseEnquiryOrderReport','purchaseRequestLineProjectNumber','i18n_enquiryReport_title_purchaselineNumber:采购申请行项目号',7,'center','string','','N','N','N',9,'','','N'),
+('purchaseEnquiryOrderReport','accessoryRequire','i18n_common_title_accessoryrequire:附件需求',7,'center','number','0:附件可选 1:必须附件','N','N','N',40,'','','N'),
+('purchaseEnquiryOrderReport','property3','i18n_common_title_attribute3:属性3',7,'center','string','','N','N','N',20,'','','N'),
+('purchaseEnquiryOrderReport','property4','i18n_common_title_attribute4:属性4',7,'center','string','','N','N','N',21,'','','N'),
+('purchaseEnquiryOrderReport','property5','i18n_common_title_attribute5:属性5',7,'center','string','','N','N','N',22,'','','N'),
+('purchaseEnquiryOrderReport','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量',7,'center','number','','N','N','N',23,'','','N'),
+('purchaseEnquiryOrderReport','minPackQuantity','i18n_common_title_minpackquantity:最小包装数',7,'center','number','','N','N','N',24,'','','N'),
+('purchaseEnquiryOrderReport','costItemAmountPrice','i18n_label_additionCost_totalAmount:总金额',7,'center','string','','N','N','N',42,'','','N'),
+('purchaseEnquiryOrderReport','remark','i18n_common_title_remarks:备注',7,'center','string','','N','N','N',41,'','','N'),
+('purchaseEnquiryOrderReport','purchaseRequestDate','i18n_enquiryReport_title_purchaseApplyDate:采购申请日期',7,'center','date','','N','N','N',10,'','','N'),
+('purchaseEnquiryOrderReport','purchaseDeliveryDate','i18n_enquiryReport_title_purchaseRequireDate:采购要货日期',7,'center','date','','N','N','N',11,'','','N'),
+('purchaseEnquiryOrderReport','logtime','i18n_label_logtime:时间戳',7,'center','date','yyyy-MM-dd hh:mm:ss','N','N','N',12,'','','N'),
+('purchaseEnquiryOrderReport','materialNumber','i18n_common_title_materialnumber:物料编码',7,'center','string','','N','N','N',13,'','','N'),
+('purchaseEnquiryOrderReport','materialDesc','i18n_common_title_materialdescribe:物料描述',7,'center','string','','N','N','N',14,'','','N'),
+('purchaseEnquiryOrderReport','quantity','i18n_common_title_quantity:采购订单数量',7,'center','number','','N','N','N',15,'','','N'),
+('purchaseEnquiryOrderReport','materialLineNumber','i18n_common_title_lineitemnumber:行项目号',7,'center','number','','N','N','N',16,'','','N'),
+('purchaseEnquiryOrderReport','purchaseType','i18n_common_label_procurementtype:采购类型',7,'center','number','0:外购; 1:外协; 2:寄售票员','N','N','N',17,'','','N'),
+('purchaseEnquiryOrderReport','property1','i18n_common_title_attribute1:属性1',7,'center','string','','N','N','N',18,'','','N'),
+('purchaseEnquiryOrderReport','property2','i18n_common_title_attribute2:属性2',7,'center','string','','N','N','N',19,'','','N'),
+('saleEnquiryOrderReport','elsAccount','i18n_common_title_elsaccount:ELS账号',4,'center','string',NULL,'N','N','N',1,NULL,NULL,'N'),
+('saleEnquiryOrderReport','fullName','i18n_common_lable_companyname:公司名称',11,'center','string',NULL,'N','N','N',2,NULL,NULL,'N'),
+('saleEnquiryOrderReport','toElsAccount','i18n_materialRelation_title_purchaseElsAccount:对方ELS账号',4,'center','string',NULL,'N','N','N',3,NULL,NULL,'N'),
+('saleEnquiryOrderReport','toFullName','i18n_purchaser:采购商名称',11,'center','string',NULL,'N','N','N',4,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseEnquiryNumber','i18n_enquiry_title_enquirynumber:采购询价单号',7,'center','string',NULL,'N','N','N',5,NULL,NULL,'N'),
+('saleEnquiryOrderReport','beginDate','i18n_enquiryReport_title_orderStartDate:订单开始日期',7,'center','date',NULL,'N','N','N',6,NULL,NULL,'N'),
+('saleEnquiryOrderReport','endDate','i18n_enquiryReport_title_endDate:订单结束日期',7,'center','date',NULL,'N','N','N',7,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseRequestNumber','i18n_enquiryReport_title_purchaseOrderNumber:采购申请单号',7,'center','string',NULL,'N','N','N',8,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseRequestLineProjectNumber','i18n_common_title_lineitemnumber:采购申请行项目号',7,'center','string',NULL,'N','N','N',9,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseRequestDate','i18n_enquiryReport_title_purchaseApplyDate:采购申请日期',7,'center','date',NULL,'N','N','N',10,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseDeliveryDate','i18n_enquiryReport_title_purchaseRequireDate:采购要货日期',7,'center','date',NULL,'N','N','N',11,NULL,NULL,'N'),
+('saleEnquiryOrderReport','logtime','i18n_label_logtime:时间戳',7,'center','date','yyyy-MM-dd hh:mm:ss','N','N','N',12,NULL,NULL,'N'),
+('saleEnquiryOrderReport','materialNumber','i18n_saleorder_title_purchasematerialnumber:物料号',7,'center','string',NULL,'N','N','N',13,NULL,NULL,'N'),
+('saleEnquiryOrderReport','materialDesc','i18n_saleorder_title_purchasematerialdesc:物料描述',7,'center','string',NULL,'N','N','N',14,NULL,NULL,'N'),
+('saleEnquiryOrderReport','quantity','i18n_common_title_quantity:采购订单数量',7,'center','number',NULL,'N','N','N',15,NULL,NULL,'N'),
+('saleEnquiryOrderReport','materialLineNumber','i18n_common_title_materialLineNumber:物料行编号',7,'center','number',NULL,'N','N','N',16,NULL,NULL,'N'),
+('saleEnquiryOrderReport','purchaseType','i18n_common_title_procurementtype:采购类型',7,'center','number','0:外购; 1:外协; 2:寄售票员','N','N','N',17,NULL,NULL,'N'),
+('saleEnquiryOrderReport','property1','i18n_common_title_attribute1:属性1',7,'center','string',NULL,'N','N','N',18,NULL,NULL,'N'),
+('saleEnquiryOrderReport','property2','i18n_common_title_attribute2:属性2',7,'center','string',NULL,'N','N','N',19,NULL,NULL,'N'),
+('saleEnquiryOrderReport','property3','i18n_common_title_attribute3:属性3',7,'center','string',NULL,'N','N','N',20,NULL,NULL,'N'),
+('saleEnquiryOrderReport','property4','i18n_common_title_attribute4:属性4',7,'center','string',NULL,'N','N','N',21,NULL,NULL,'N'),
+('saleEnquiryOrderReport','property5','i18n_common_title_attribute5:属性5',7,'center','string',NULL,'N','N','N',22,NULL,NULL,'N'),
+('saleEnquiryOrderReport','minOrderQuantity','i18n_common_title_minorderquantity:最小订单量',7,'center','number',NULL,'N','N','N',23,NULL,NULL,'N'),
+('saleEnquiryOrderReport','minPackQuantity','i18n_common_title_minpackquantity:最小包装数',7,'center','number',NULL,'N','N','N',24,NULL,NULL,'N'),
+('saleEnquiryOrderReport','cycle','i18n_common_title_purchasecycle:采购周期',7,'center','number',NULL,'N','N','N',25,NULL,NULL,'N'),
+('saleEnquiryOrderReport','price','i18n_common_title_notincludingtaxprice:不含税价',7,'center','number',NULL,'N','N','N',26,NULL,NULL,'N'),
+('saleEnquiryOrderReport','priceIncludingVat','i18n_common_title_priceincludingtax:含税价',7,'center','number',NULL,'N','N','N',27,NULL,NULL,'N'),
+('saleEnquiryOrderReport','currency','i18n_common_title_currency:币别',7,'center','string',NULL,'N','N','N',28,NULL,NULL,'N'),
+('saleEnquiryOrderReport','minTolerance','i18n_common_title_lackoftolerance:不足容差',7,'center','number',NULL,'N','N','N',29,NULL,NULL,'N'),
+('saleEnquiryOrderReport','maxTolerance','i18n_common_title_excessivetolerance:超量容差',7,'center','number',NULL,'N','N','N',30,NULL,NULL,'N'),
+('saleEnquiryOrderReport','infinite','i18n_common_title_unlimitedtolerance:无限制',7,'center','number',NULL,'N','N','N',31,NULL,NULL,'N'),
+('saleEnquiryOrderReport','unitQuantity','i18n_additionCost_quantityUnit:数量单位',7,'center','string',NULL,'N','N','N',32,NULL,NULL,'N'),
+('saleEnquiryOrderReport','unitPrice','i18n_additionCost_priceMeasuringUnit:价格单位',7,'center','string',NULL,'N','N','N',33,NULL,NULL,'N'),
+('saleEnquiryOrderReport','unitMeasure','i18n_common_title_valuationUOM:度量单位',7,'center','string',NULL,'N','N','N',34,NULL,NULL,'N'),
+('saleEnquiryOrderReport','deliveryDate','i18n_common_deliverydate:交货日期',7,'center','date',NULL,'N','N','N',35,NULL,NULL,'N'),
+('saleEnquiryOrderReport','orderStatus','i18n_enquiry_title_enquirystatus:订单的状态',7,'center','number','0:新建 1:报价中 2:议价中 3:审批中 4:重报价 5:已定价 6:已拒绝 7:已结束 8:已报价 9:已选择','N','N','N',36,NULL,NULL,'N'),
+('saleEnquiryOrderReport','auditStatus','i18n_enquiry_title_auditStatus:审核状态',7,'center','number','0:未审核 1:审核通过 2:审核不通过','N','N','N',37,NULL,NULL,'N'),
+('saleEnquiryOrderReport','quoteMethod','i18n_common_title_quotemethod:报价方式',7,'center','number','0:常规报价 1:阶梯报价','N','N','N',38,NULL,NULL,'N'),
+('saleEnquiryOrderReport','maker','i18n_enquiry_title_maker:制单人',7,'center','string',NULL,'N','N','N',39,NULL,NULL,'N'),
+('saleEnquiryOrderReport','accessoryRequire','i18n_common_title_accessoryrequire:附件要求',7,'center','number','0:附件可选 1:必须附件','N','N','N',40,NULL,NULL,'N'),
+('saleEnquiryOrderReport','remark','i18n_common_title_remarks:备注',7,'center','string',NULL,'N','N','N',41,NULL,NULL,'N'),
+('saleEnquiryOrderReport','taxesCode','i18n_common_title_taxCode:税费代码',7,'center','string',NULL,'N','N','N',42,NULL,NULL,'N'),
+('saleEnquiryOrderReport','priceValidBeginDate','i18n_common_price_effective_begin_date:价格有效开始日期',7,'center','date',NULL,'N','N','N',43,NULL,NULL,'N'),
+('saleEnquiryOrderReport','priceValidEndDate','i18n_common_price_effective_end_date:价格有效结束日期',7,'center','date',NULL,'N','N','N',44,NULL,NULL,'N');
+
+--------------------------------------------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_class_name` VALUES ('105012', '诺普信', 'SAP', 'PurchaseEnquirySapServiceImpl', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'FromSapPurchaseEnquiryItemHistory', 'PurchaseEnquirySapServiceImpl', 'fromSapPurchaseEnquiryItemHistory', null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'FromSapPurchaseEnquiryItemHistory', 'fromSapPurchaseEnquiryItemHistory', '从ERP获取历史价格用于审批时参照', null, null, null, null, null, null, null, null, null, null);
+
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function 配置rfc函数入参
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1001', '10004', '10012', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_DATE', 'TABLES', '  ', 'IT_DATE', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_MATNR', 'TABLES', ' ', 'IT_MATNR', 'STRING', ' ', ' ', '2016-04-21 15:41:47', null, null, null);
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_TXZ01', 'TABLES', ' ', 'IT_TXZ01', 'STRING', ' ', ' ', '2016-04-21 15:42:33', null, null, null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'EP_SUBRC', 'SIMPLE', '2016-04-21 16:12:47', '江志东', '2016-04-21 16:12:59', null);
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'ET_MESSAGE', 'SIMPLE', '2016-04-21 16:13:34', '江志东', '2016-04-21 16:13:42', null);
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'ITAB', 'TABLES', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LOEKZ',   'STRING', '', 'LOEKZ', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BEDAT',   'STRING', '', 'BEDAT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BANFN',   'STRING', '', 'BANFN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EBELN',   'STRING', '', 'EBELN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EBELP',   'STRING', '', 'EBELP', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LIFNR',   'STRING', '', 'LIFNR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'NAME1',   'STRING', '', 'NAME1', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MATNR',   'STRING', '', 'MATNR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'TXZ01',   'STRING', '', 'TXZ01', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'GONGY',   'STRING', '', 'GONGY', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'GROES',   'STRING', '', 'GROES', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'CAIZH',   'STRING', '', 'CAIZH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'CHICN',   'STRING', '', 'CHICN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'REVLV',   'STRING', '', 'REVLV', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MEINS',   'STRING', '', 'MEINS', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MENGE',   'STRING', '', 'MENGE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'NETPR',   'STRING', '', 'NETPR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'KBETR',   'STRING', '', 'KBETR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'M2',      'STRING', '', 'M2', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BRTWR',   'STRING', '', 'BRTWR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'TAXTEXT', 'STRING', '', 'TAXTEXT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LFDAT',   'STRING', '', 'LFDAT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LGOBE',   'STRING', '', 'LGOBE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EKGRP',   'STRING', '', 'EKGRP', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'ELIKZ',   'STRING', '', 'ELIKZ', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'KZABS',   'STRING', '', 'KZABS', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+-------------------------------------接口(从ERP获取历史价格用于审批时参照)-------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_class_name` VALUES ('105012', '诺普信', 'SAP', 'PurchaseEnquirySapServiceImpl', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'FromSapPurchaseEnquiryItemHistory', 'PurchaseEnquirySapServiceImpl', 'fromSapPurchaseEnquiryItemHistory', 'XX1001', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'FromSapPurchaseEnquiryItemHistory', 'fromSapPurchaseEnquiryItemHistory', '从ERP获取历史价格用于审批时参照', null, null, null, null, null, null, null, null, null, null);
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1001', '10004', '10012', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function` VALUES ('10012', 'ZRFC_SRM_PO_HISTPRICE_DATA', '1', 'N', '2016-04-21 15:25:39', '江志东', '2016-04-21 15:25:28', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_DATE', 'TABLES', '  ', 'IT_DATE', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_MATNR', 'TABLES', ' ', 'IT_MATNR', 'STRING', ' ', ' ', '2016-04-21 15:41:47', null, null, null);
+INSERT INTO `els_erp_function_import` VALUES ('10012', 'IT_TXZ01', 'TABLES', ' ', 'IT_TXZ01', 'STRING', ' ', ' ', '2016-04-21 15:42:33', null, null, null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_DATE', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_MATNR', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'SIGN', 'STRING', '', 'SIGN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'OPTION', 'STRING', 'EQ', 'OPTION', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'LOW', 'STRING', '', 'LOW', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'IT_TXZ01', 'HIGH', 'STRING', '', 'HIGH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'EP_SUBRC', 'SIMPLE', '2016-04-21 16:12:47', '江志东', '2016-04-21 16:12:59', null);
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'ET_MESSAGE', 'SIMPLE', '2016-04-21 16:13:34', '江志东', '2016-04-21 16:13:42', null);
+INSERT INTO `els_erp_function_export` VALUES ('10012', 'ITAB', 'TABLES', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LOEKZ',   'STRING', '', 'LOEKZ', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BEDAT',   'STRING', '', 'BEDAT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BANFN',   'STRING', '', 'BANFN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EBELN',   'STRING', '', 'EBELN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EBELP',   'STRING', '', 'EBELP', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LIFNR',   'STRING', '', 'LIFNR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'NAME1',   'STRING', '', 'NAME1', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MATNR',   'STRING', '', 'MATNR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'TXZ01',   'STRING', '', 'TXZ01', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'GONGY',   'STRING', '', 'GONGY', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'GROES',   'STRING', '', 'GROES', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'CAIZH',   'STRING', '', 'CAIZH', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'CHICN',   'STRING', '', 'CHICN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'REVLV',   'STRING', '', 'REVLV', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MEINS',   'STRING', '', 'MEINS', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'MENGE',   'STRING', '', 'MENGE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'NETPR',   'STRING', '', 'NETPR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'KBETR',   'STRING', '', 'KBETR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'M2',      'STRING', '', 'M2', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'BRTWR',   'STRING', '', 'BRTWR', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'TAXTEXT', 'STRING', '', 'TAXTEXT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LFDAT',   'STRING', '', 'LFDAT', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'LGOBE',   'STRING', '', 'LGOBE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'EKGRP',   'STRING', '', 'EKGRP', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'ELIKZ',   'STRING', '', 'ELIKZ', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10012', 'ITAB', 'KZABS',   'STRING', '', 'KZABS', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+-------------------------------------接口(询价结果上传ERP)-------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'ToSapPurchaseEnquiryItem', 'PurchaseEnquirySapServiceImpl', 'toSapPurchaseEnquiryItem', 'XX1004', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'ToSapPurchaseEnquiryItem', 'toSapPurchaseEnquiryItem', '询价结果上传ERP', null, null, null, null, null, null, null, null, null, null);
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1004', '10004', '10015', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function` VALUES ('10015', 'ZRFC_SRM_INFORECORD', '1', 'Y', '2016-04-21 15:25:39', '江志东', '2016-04-21 15:25:28', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10015', 'ITAB', 'TABLES', '  ', 'ITAB', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+
+update from `els_erp_function_struct` set paramFieldDefaultValue='' where functionId='10015'
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'ESOKZ',  'STRING', '', 'ESOKZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'LIFNR',  'STRING', '', 'LIFNR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'MATNR',  'STRING', '', 'MATNR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'EKORG',  'STRING', '', 'EKORG',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'WERKS',  'STRING', '', 'WERKS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'MWSKZ',  'STRING', '', 'MWSKZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'NETPR',  'STRING', '', 'NETPR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'BPRME',  'STRING', '', 'BPRME',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'PEINH',  'STRING', '', 'PEINH',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KSCHL',  'STRING', '', 'KSCHL',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'BPUMZ',  'STRING', '', 'BPUMZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'BPUMN',  'STRING', '', 'BPUMN',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'FLIFN',  'STRING', '', 'FLIFN',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KSTBM2', 'STRING', '', 'KSTBM2', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KBETR2', 'STRING', '', 'KBETR2', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KSTBM3', 'STRING', '', 'KSTBM3', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KBETR3', 'STRING', '', 'KBETR3', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KSTBM4', 'STRING', '', 'KSTBM4', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KBETR4', 'STRING', '', 'KBETR4', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KSTBM5', 'STRING', '', 'KSTBM5', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'KBETR5', 'STRING', '', 'KBETR5', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'BANFN',  'STRING', '', 'BANFN',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ITAB', 'BNFPO',  'STRING', '', 'BNFPO',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_export` VALUES ('10015', 'ET_LOG', 'TABLES', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'BANFN',   'STRING', '', 'BANFN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'BNFPO',   'STRING', '', 'BNFPO', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'EBELN',   'STRING', '', 'EBELN', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'LTYPE',   'STRING', '', 'LTYPE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'TYPE',    'STRING', '', 'TYPE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10015', 'ET_LOG', 'MESSAGE', 'STRING', '', 'MESSAGE', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10019', 'IT_EKORG' , 'TABLES', ' ', 'IT_EKORG' , 'STRING', ' ', ' ', '2016-04-26 15:39:02', null, '2016-04-26 15:39:11', null);
+INSERT INTO `els_erp_function_import` VALUES ('10019', 'IT_BANFN' , 'TABLES', ' ', 'IT_BANFN' , 'STRING', ' ', ' ', '2016-04-26 15:41:47', null, '2016-04-26 15:41:47', null);
+INSERT INTO `els_erp_function_import` VALUES ('10019', 'IT_EKGRP' , 'TABLES', ' ', 'IT_EKGRP' , 'STRING', ' ', ' ', '2016-04-26 15:41:56', null, '2016-04-26 15:41:56', null);
+INSERT INTO `els_erp_function_import` VALUES ('10019', 'IT_DATE' ,  'TABLES', ' ', 'IT_DATE'  , 'STRING', ' ', ' ', '2016-04-26 15:42:33', null, '2016-04-26 15:42:33', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKORG', 'SIGN'  , 'STRING', '' , 'SIGN'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKORG', 'OPTION', 'STRING', '', 'OPTION'             , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKORG', 'LOW'   , 'STRING', '' , 'purchaseGroup'      , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKORG', 'HIGH'  , 'STRING', '' , 'HIGH'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_BANFN', 'SIGN'  , 'STRING', '' , 'SIGN'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_BANFN', 'OPTION', 'STRING', '', 'OPTION'             , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_BANFN', 'LOW'   , 'STRING', '' , 'purchaseOrderNumber', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_BANFN', 'HIGH'  , 'STRING', '' , 'HIGH'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKGRP', 'SIGN'  , 'STRING', '' , 'SIGN'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKGRP', 'OPTION', 'STRING', '', 'OPTION'             , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKGRP', 'LOW'   , 'STRING', '' , 'purchaseOrganize'   , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_EKGRP', 'HIGH'  , 'STRING', '' , 'HIGH'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_DATE' , 'SIGN'  , 'STRING', '' , 'SIGN'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_DATE' , 'OPTION', 'STRING', '', 'OPTION'             , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_DATE' , 'LOW'   , 'STRING', '' , 'requestDate'        , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'IT_DATE' , 'HIGH'  , 'STRING', '' , 'HIGH'               , ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_export` VALUES ('10019', 'EP_SUBRC'  , 'SIMPLE', '2016-04-26 16:12:47', '邹星火', '2016-04-26 16:12:59', null);
+INSERT INTO `els_erp_function_export` VALUES ('10019', 'ET_MESSAGE', 'SIMPLE', '2016-04-26 16:13:34', '邹星火', '2016-04-26 16:13:42', null);
+INSERT INTO `els_erp_function_export` VALUES ('10019', 'ITAB'      , 'TABLES', '2016-04-26 16:14:25', '邹星火', '2016-04-26 16:14:33', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'BANFN',   'STRING', '', 'BANFN', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'BNFPO',   'STRING', '', 'BNFPO', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'BSART',   'STRING', '', 'BSART', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'MATNR',   'STRING', '', 'MATNR', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'TXZ01',   'STRING', '', 'TXZ01', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'MENGE',   'STRING', '', 'MENGE', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'MEINS',   'STRING', '', 'MEINS', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'WERKS',   'STRING', '', 'WERKS', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'BADAT',   'STRING', '', 'BADAT', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'LFDAT',   'STRING', '', 'LFDAT', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'EKORG',   'STRING', '', 'EKORG', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'EKGRP',   'STRING', '', 'EKGRP', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'EKNAM',   'STRING', '', 'EKNAM', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'BANPR',   'STRING', '', 'BANPR', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'MATKL',   'STRING', '', 'MATKL', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'WGBEZ',   'STRING', '', 'WGBEZ', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'LGORT',   'STRING', '', 'LGORT', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'LGOBE',   'STRING', '', 'LGOBE', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'CHANGE_IND',   'STRING', '', 'CHANGE_IND', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10019', 'ITAB', 'PSTYP',   'STRING', '', 'PSTYP', ' ', ' ', ' ', ' ', '2016-04-26 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+

@@ -1,0 +1,437 @@
+@charset "utf-8";#leftBar {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 52px;
+    display: none;
+    background: rgba(255,255,255,.01)
+}
+
+#dockBar {
+    position: absolute;
+    width: 5px;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+    background: #fff;
+    opacity: .0001;
+    filter: alpha(opacity=0)
+}
+
+#rightBar {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 54px;
+    display: none
+}
+
+#topBar {
+    height: 73px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    display: none
+}
+
+#topBar,#leftBar,#rightBar {
+    z-index: 45
+}
+
+#dockContainer {
+    height: 552px;
+    left: -52px;
+    margin: -290px 0 0;
+    position: absolute;
+    top: 50%;
+    width: 52px;
+    z-index: 1;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0)
+}
+
+#dockContainer.pin {
+    left: 0
+}
+
+#topBar #dockContainer {
+    width: 576px;
+    top: 0;
+    margin-left: -290px;
+    position: absolute;
+    left: 50%;
+    height: 73px
+}
+
+.dock_middle {
+    height: 545px;
+    padding-top: 25px
+}
+
+#topBar .dock_middle {
+    width: 566px;
+    padding-left: 10px;
+    background: url(../images/dock_up.png) no-repeat 0 0;
+    height: 73px;
+    padding-top: 0
+}
+
+#topBar #default_app {
+    width: 445px;
+    position: relative;
+    height: 63px;
+    float: left
+}
+
+#default_app .default-app-part {
+    border-bottom: 1px dotted rgba(87,87,87,.39)
+}
+
+#default_app .active-app-part {
+    position: absolute;
+    top: 208px;
+    bottom: 0;
+    width: 100%
+}
+
+#topBar #default_app .desktopIcon {
+    float: left
+}
+
+#topBar .default_tools {
+    width: 30px;
+    margin-top: 3px;
+    margin-left: 1px;
+    overflow: hidden;
+    height: 60px;
+    float: left
+}
+
+#topBar #start_block {
+    height: 63px;
+    width: 50px;
+    float: left
+}
+
+.dock_middle {
+    background: #2d2c2e;
+    border-radius: 6px;
+    box-shadow: 2px 2px 2px rgba(0,0,0,.26),inset -10px 0 100px rgba(0,0,0,.2);
+    overflow: hidden
+}
+
+.dock_pos_right #start_item {
+    right: 68px;
+    left: auto
+}
+
+#topBar #start_item {
+    left: auto;
+    right: 0;
+    top: 68px;
+    bottom: auto
+}
+
+.dock_pos_right #start_item .item li span {
+    margin-left: 30px
+}
+
+.dock_pos_right #start_item .item li b {
+    left: 10px;
+    background: url(../images/item-child1.png) no-repeat scroll center
+}
+
+.dock_pos_right #start_item .childItem {
+    left: -181px
+}
+
+#search_app_btn {
+    background: url(../images/navbarBtn.png) no-repeat -108px -8px
+}
+
+#reset_btn {
+    background: url(../images/show-desktop.png) no-repeat center center
+}
+
+#showZm_btn {
+    background: url(../images/fullscreen.png) no-repeat center center;
+    background-size: 100% 100%
+}
+
+#them_btn {
+    background: url(../images/skin.png) no-repeat center center
+}
+
+#start_block {
+    width: 100%;
+    height: 50px
+}
+
+#start_btn {
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: url(../images/start-btn.png) no-repeat center bottom;
+    margin: 4px auto 0;
+    outline: none;
+    z-index: 501;
+    cursor: pointer
+}
+
+#start_btn:hover {
+    background-position: center top
+}
+
+#start_item {
+    width: 180px;
+    height: auto;
+    padding: 5px 0;
+    background: url(../images/start_item_bg.png) repeat;
+    position: absolute;
+    z-index: 500;
+    left: 55px;
+    bottom: 0;
+    display: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #444;
+}
+
+#start_item .item {
+    width: 100%;
+    height: auto;
+    border-top: 1px solid #666;
+    font-size: 12px
+}
+
+#start_item .item li {
+    width: 98%;
+    height: 24px;
+    padding: 6px 0;
+    line-height: 24px;
+    margin: 0 auto;
+    color: #FFF;
+    position: relative;
+}
+
+#start_item .childItem .childItem {
+    right: -175px !important;
+}
+
+#item2 .childItem #item2_0_0 {
+    /* width: 100%; */
+}
+
+#item2 .childItem #item2_0_0 span {
+    padding-right: 0;
+}
+
+#start_item .item li:hover {
+    background: url(../images/start_item_over.png) repeat-x left bottom;
+    cursor: pointer;
+}
+
+#start_item .item li span {
+    display: inline-block;
+    height: 24px;
+    background-image: url(../images/start_itembtn.png);
+    background-repeat: no-repeat;
+    padding-right: 20px;
+    margin-left: 15px
+}
+
+#start_item .item li span img {
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 5px
+}
+
+#start_item .item li b {
+    width: 10px;
+    height: 24px;
+    background: url(../images/item-child.png) no-repeat center center;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 6px
+}
+
+#start_item .admin {
+    border-bottom: 1px solid #444;
+    padding: 5px 0;
+    border-top: none
+}
+
+#start_item .item .line {
+    height: 1px;
+    padding: 0;
+    background-color: #444
+}
+
+#start_item .childItem {
+    position: absolute;
+    top: 0;
+    right: -182px;
+    background: url(../images/start_item_bg.png) no-repeat;
+    display: none;
+    /* width:250px; */
+    background-size: cover;
+}
+
+#item0 .childItem {
+    width: 250px;
+    left: 181px;
+}
+
+#item2 .childItem {
+/*     height: 300px; */
+/*     overflow-y: auto; */
+}
+
+#start_item .item li .adminImg {
+    border: 1px solid #e0e0e0;
+    background-position: left -92px;
+    background-color: #FFF;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    float: left;
+    margin-right: 10px
+}
+
+.default_tools {
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+    zoom:-1;margin-top: 1px;
+    border-bottom: 1px solid #6d6d6d
+}
+
+.default_tools a {
+    width: 18px;
+    height: 20px;
+    display: inline-block;
+    margin: 5px 4px;
+    cursor: pointer;
+    float: left;
+    outline: medium none
+}
+
+#default_app {
+    width: 100%;
+    height: 424px;
+    position: relative;
+    border-bottom: 1px solid #6d6d6d
+}
+
+#default_app .desktopIcon {
+    width: 100%;
+    height: 48px;
+    margin: 0 auto;
+    padding: 2px 0
+}
+
+#default_app .desktopIcon:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.dock_middle .desktopIcon .icon img {
+    width: 30px;
+    height: 30px;
+    border-radius: 4px
+}
+
+#default_app .desktopIcon .text {
+    display: none
+}
+
+#default_app .btnOver {
+    background: url(../images/default_appbtn_bg.png) no-repeat center center
+}
+
+.smart_menu_box .smart_menu_a {
+    color: #333
+}
+
+.smart_menu_box .smart_menu_li_separate {
+    border-bottom: 1px solid #d6d5d5
+}
+
+.dock_drag_mask {
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 300000
+}
+
+.dock_drop_region_top {
+    height: 20%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%
+}
+
+.dock_drop_region_left {
+    bottom: 0;
+    height: 80%;
+    left: 0;
+    position: absolute;
+    width: 50%
+}
+
+.dock_drop_region_right {
+    bottom: 0;
+    height: 80%;
+    position: absolute;
+    right: 0;
+    width: 50%
+}
+
+.dock_drag_effect {
+    border: 3px solid #3c9dff;
+    display: none;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    z-index: 4000000;
+    background: url(../images/bg.png) repeat
+}
+
+.dock_drag_effect_left {
+    height: 568px;
+    left: -3px;
+    margin: -288px 0 0;
+    position: absolute;
+    top: 50%;
+    width: 65px
+}
+
+.dock_drag_effect_top {
+    height: 65px;
+    left: 50%;
+    margin: 0 0 0 -288px;
+    position: absolute;
+    top: -3px;
+    width: 568px
+}
+
+.dock_drag_effect_right {
+    height: 568px;
+    margin: -288px 0 0;
+    position: absolute;
+    right: -3px;
+    top: 50%;
+    width: 65px
+}
+
+.dock_drag_effect_current {
+    border-color: #e1f0fd;
+    opacity: 0;
+    filter: alpha(opacity=0)
+}

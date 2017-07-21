@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<title>企企通互联网解决方案</title>
+	<link rel="icon" href="../images/logo.ico">
+	<link rel="shortcut icon" href="../images/logo.ico"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- CSS -->
+	<!-- <link rel="stylesheet" href="css/supersized.css"> -->
+	<link rel="stylesheet" href="css/login.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lte IE 9]>
+	<style>
+		.main_box{
+			z-index: 99;
+		}
+		.downloadClientApp{
+			display: none;
+		}
+	</style>
+	<script src="js/html5.js"></script>
+
+	<![endif]-->
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="../extend/language/base-language.js"></script>
+	<script type="text/javascript" src="../extend/jquery-ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="../extend/jquery-ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="../extend/jquery-ui/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="../extend/jquery-ui/jquery.ui.draggable.js"></script>
+	<script type="text/javascript" src="js/jquery.form.js"></script>
+	<script type="text/javascript" src="js/tooltips.js"></script>
+	<script type="text/javascript" src="js/login.js"></script>
+	<script type="text/javascript" src="js/jquery.md5.js"></script>
+	<script src="../js/jquery.serializejson.js" type="text/javascript"></script>
+	<script src="../js/common.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+	<!-- <script type="text/javascript" src="js/jquery.roundabout.min.js"></script>
+	<script type="text/javascript" src="js/jquery.roundabout-shapes.min.js"></script> -->
+	<style>
+	.downloadClientApp2 {
+  position: absolute;
+  right: 160px;
+  top: 20px;
+  font-size: 16px;
+  background: url(../images/download.png) no-repeat 0px 50%;
+  padding-left: 24px;
+  background-size: 20px 20px;
+}
+	.downloadClientApp2  a{
+	color:#fff;
+	}
+	</style>
+	<script type="text/javascript">
+		window.history.forward();
+		window.onbeforeunload = function () {
+		}
+		function showDownload(){
+			window.open("download.html","download");
+		}
+	</script>
+</head>
+
+<body>
+<!--[if lte IE 9]>
+<div  style="z-index:100000;background: rgb(0, 0, 0); width: 100%; height: 100%; filter: alpha(opacity=30); position: absolute; opacity: 0.3; -moz-opacity: 0.3; -khtml-opacity: 0.3;"></div>
+<div style="position: relative;z-index:100000;background: #ffffff">
+	&nbsp;&nbsp;
+	<span>当前浏览器版本过低，请下载客户端：</span>
+	&nbsp;&nbsp;
+	<a href="/opt/nfsshare/client/ELSBrowser_Setup_OnlineFx.exe">客户端</a>
+	&nbsp;&nbsp;
+	<span>或者更新浏览器：</span>
+	&nbsp;&nbsp;
+	<a href="http://dlsw.baidu.com/sw-search-sp/soft/9d/14744/ChromeStandalone_47.0.2526.106_Setup.1450323126.exe" ><span>谷歌浏览器</span></a>
+	&nbsp;&nbsp;
+	<a href="http://down.360safe.com/se/360se8.1.1.122.exe" ><span>360安全浏览器</span></a>
+	&nbsp;&nbsp;
+	<a href="http://windows.microsoft.com/zh-cn/internet-explorer/ie-11-worldwide-languages/" target="_blank"><span>Internet Explore 11 浏览器</span></a>
+</div>
+<![endif]-->
+<div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1">
+</div>
+
+<div class="page-container">
+	<div class="page-container-wrap">
+		<div class="main_head">
+			<div class="login_logo">
+				<img src="../login/images/els-logo.png" />
+				<img src="../login/images/els-logo-f.png" />
+				<img src="../login/images/els-logo-en.png" />
+			</div>
+			<div class="downloadClientApp2"><a href="javascript:showDownload();">下载供应商操作视频</a></div>
+			<div class="downloadClientApp"><a href="/opt/nfsshare/client/ELSBrowser_Setup_OnlineFx.exe">下载客户端</a></div>
+		</div>
+		
+		<div class="main_box">
+		<div class="round_box">
+        <!-- <ul class="round">
+            <li>
+                <img src="../login/images/zhichi01.jpg" />
+            </li>
+            <li>
+                <img src="../login/images/zhichi02.jpg" />
+            </li>
+            <li>
+                <img src="../login/images/zhichi03.jpg" />
+            </li>
+            <li>
+                <img src="../login/images/zhichi04.jpg" />
+            </li>
+            <li>
+                <img src="images/zhichi05.jpg" />
+            </li>
+        </ul> -->
+    </div>
+			<div class="login_box">
+				<h3>登录</h3>
+				<div class="login_form">
+					<form method="post" id="loginForm" action="">
+						<div class="form-group" style="border-bottom: solid 1px #c4c6e6;">
+							<label for="language" class="t" style="text-align:left;" title="语言"><span>语&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;言</span><span class="span-sign">：</span></label>
+							<select id="language" name="language" class="form-control x319 in"
+							        style="border-bottom: 0;width: 170px; appearance: none;-moz-appearance: none; -ms-appearance: none;-webkit-appearance: none;  background: transparent url(../images/down.gif) no-repeat 234px 16px;  box-sizing: content-box;">
+								<option value="zh_cn">简体中文</option>
+								<option value="zh_tw">繁体中文</option>
+								<option value="en">English</option>
+							</select>
+	
+						</div>
+						<div class="form-group">
+							<label for="elsAccount" class="t"><span>ELS 账号</span><span class="span-sign">：</span></label>
+							<input id="elsAccount" placeholder="请输入ELS账号" value="" name="elsAccount" type="text" class="form-control x319 in"
+							       autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="elsSubAccount" class="t"><span>个人账号</span><span class="span-sign">：</span></label>
+							<input id="elsSubAccount" placeholder="个人账号/工号/邮箱/手机号" value="" name="elsSubAccount" type="text" class="form-control x319 in"
+							       autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="elsSubAccountPassword" class="t"><span>密　&nbsp;&nbsp;&nbsp;码</span><span class="span-sign">：</span></label>
+							<input id="elsSubAccountPassword" placeholder="请输入密码" value="" name="elsSubAccountPassword" type="password"
+							       class="password form-control x319 in">
+						</div>
+						<div class="form-group">
+							<label for="identifyCode" class="t"><span>验&nbsp;&nbsp;证&nbsp;码</span><span class="span-sign">：</span></label>
+							<input id="identifyCode"  placeholder="请输入验证码" name="identifyCode" type="text" class="form-control x164 in">
+							<img id="code" alt="点击更换" title="点击更换"  onclick="changeCode()" src="../image/identifyingCode.img" class="m">
+	                        <span id="i18n_label_elsSubAccount" class="change-code"><a onclick="changeCode()" href="javascript:void(0)">换一张</a></span>
+						</div>
+						<div class="form-group opt" style="position: relative;min-height: 16px;">
+							<label class="fr col-sm-12 warn"><span style="display:block; max-width: 100%;">请勿在非个人设备上设置[<b>记住密码</b>]或[<b>自动登录</b>]</span></label>
+							<label class="ff  js-save-p" style="position:absolute;top:-20px;left:25px;"><input type="checkbox"><span>记住密码</span></label>
+							<label class="fr  js-forgot-p"  style="position:absolute;top: -89px;left: 212px;background: #fff;"><a style=" min-width: 64px;display: inline-flex;" href="findpwd.html">[?]<span>忘记密码</span></a></label>
+							<label class="fr  js-auto-l" style="position:absolute;top: -20px;left: 128px;"><input type="checkbox"><span>自动登录</span></label>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+						<div class="form-group space">
+							<button type="button" id="submit_btn"
+							        class="btn blue">&nbsp;登&nbsp;录&nbsp;
+							</button>
+							<button type="button" id="reg_btn"
+							        class="btn gray">&nbsp;注&nbsp;册&nbsp;
+							</button>
+							<div class="clear"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 备案信息 -->
+		<!-- <div class="main_foot">
+			<div class="bottom">深圳市公安局备案编号粤ICP备15109055号&nbsp;&nbsp;|Copyright © 2015-2016  www.els123.com 版权所有&nbsp;&nbsp;| <a href="#">系统登陆</a></div>
+		</div> -->
+		<div class="main_foot">
+		<!-- <div class="bottom">企企通科技 Copyright &copy; 2015 - 2016 <a href="#">系统登陆</a></div>
+		<div class="copyright">深圳市公安局备案编号粤ICP备15109055号-1&nbsp;&nbsp;|&nbsp;&nbsp;粤ICP备15109055号&nbsp;&nbsp;|&nbsp;&nbsp;<a target="_blank" href="http://img14.360buyimg.com/da/jfs/t256/349/769670066/270505/3b03e0bb/53f16c24N7c04d9e9.jpg">互联网药品信息服务资格证编号(京)-经营性-2014-0008</a>&nbsp;&nbsp;|&nbsp;&nbsp;新出发京零&nbsp;字第大120007号<br><a rel="nofollow" href="http://misc.360buyimg.com/skin/df/i/com/f_music.jpg" target="_blank">音像制品经营许可证苏宿批005号</a>&nbsp;&nbsp;|&nbsp;&nbsp;出版物经营许可证编号新出发(苏)批字第N-012号&nbsp;&nbsp;|&nbsp;&nbsp;互联网出版许可证编号新出网证(京)字150号<br><a href="http://misc.360buyimg.com/wz/wlwhjyxkz.jpg" target="_blank">网络文化经营许可证京网文[2014]2148-348号</a>&nbsp;&nbsp;违法和不良信息举报电话：4006561155&nbsp;&nbsp;Copyright&nbsp;©&nbsp;2015-2016&nbsp;&nbsp;www.els123.com&nbsp;版权所有<br>企企通合作伙伴：<a target="_blank" href="">诺普信</a>&nbsp;&nbsp;<a href="" target="_blank">汇洁</a>&nbsp;&nbsp;<a href="" target="_blank">马斯菲尔</a></div>
+		 -->
+		<div class="bottom">
+			Copyright © 2015-2016  深圳市企企通科技有限公司 <span class="reserved">版权所有</span>&nbsp;&nbsp;
+			<br />
+			<span class="record-num">备案编号粤ICP备15109055号</span>&nbsp;&nbsp;<span class="customer_serv">在线客服</span>：4008351881
+		</div>
+		<!-- <div class="authentication">
+			<a rel="nofollow" target="_blank" href="http://www.hd315.gov.cn/beian/view.asp?bianhao=010202007080200026">
+				<img width="103" height="32" alt="经营性网站备案中心" src="//img12.360buyimg.com/da/jfs/t535/349/1185317137/2350/7fc5b9e4/54b8871eNa9a7067e.png" class="err-product">
+			</a>
+			
+			<a rel="nofollow" target="_blank" id="urlknet" tabindex="-1" href="https://ss.knet.cn/verifyseal.dll?sn=2008070300100000031&amp;ct=df&amp;pa=294005">
+				<img border="true" width="103" height="32" onclick="CNNIC_change('urlknet')" oncontextmenu="return false;" name="CNNIC_seal" alt="可信网站" src="//img11.360buyimg.com/da/jfs/t643/61/1174624553/2576/4037eb5f/54b8872dNe37a9860.png" class="err-product">
+			</a>
+			<a rel="nofollow" target="_blank" href="http://www.bj.cyberpolice.cn/index.do">
+				<img width="103" height="32" alt="朝阳网络警察" src="//img11.360buyimg.com/da/jfs/t559/186/1172042286/2795/7d90b036/54b8874bN694454a5.png" class="err-product">
+			</a>
+			<a rel="nofollow" target="_blank" href="https://search.szfw.org/cert/l/CX20120111001803001836">
+				<img width="103" height="32" src="//img11.360buyimg.com/da/jfs/t451/173/1189513923/1992/ec69b14a/54b8875fNad1e0c4c.png" class="err-product">
+			</a>
+			<a target="_blank" href="http://jubao.china.cn:13225/reportform.do">
+				<img width="185" height="32" src="//img10.360buyimg.com/da/jfs/t520/303/1151687373/1180/2f8340fc/54b8863dN8d2c61ec.png" class="err-product">
+			</a>
+		</div> -->
+	</div>
+	</div>
+</div>
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $('.round').roundabout({
+            autoplay: true,//自动播放
+            autoplayDuration: 2000,//时间
+            autoplayPauseOnHover: false,//自动鼠标移上停滞
+            shape: 'square',  //支持属性:theJuggler、figure8、waterWheel、square、conveyorBeltLeft、conveyorBeltRight、goodbyeCruelWorld、diagonalRingLeft、diagonalRingRight、rollerCoaster、tearDrop、tickingClock、flurry、nowSlide、risingEssence
+            minOpacity: 1
+        });
+    });
+</script> -->
+<!-- Javascript -->
+
+<!-- <script src="js/supersized.3.2.7.min.js"></script> -->
+<!-- <script src="js/supersized-init.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,3 @@
+1,K3系统表t_MeasureUnit---企业库表material
+
+2,K3系统表t_MeasureUnit---云端unit_of_measurement

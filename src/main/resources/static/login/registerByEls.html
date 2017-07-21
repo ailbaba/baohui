@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<title>企企通互联网解决方案</title>
+	<link rel="icon" href="../images/logo.ico">
+	<script src="js/jquery-1.8.2.min.js"></script>
+	<script src="../js/common.js" type="text/javascript"></script>
+</head>
+<body>
+<script>
+var elsAccount = GetQueryString("elsAccount");
+if (elsAccount != ""){
+	$.ajax({
+		url :"../rest/AccountService/register/getRegisterCode/"+elsAccount,
+		type :"get",
+		dataType : "json",
+		success : function(data) {
+			if (data.registerCode) {
+				window.location="register.html?registerCode="+data.registerCode + "&isSupplier=true";
+			} else {
+				window.location="register.html";
+			}
+		},error:function(){
+			window.location="register.html";
+		}
+	});
+} else {
+// 	window.location="register.html";
+}
+
+</script>
+</body>
+</html>

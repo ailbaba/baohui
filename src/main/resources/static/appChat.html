@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link href="extend/jquery-ui/themes/base/jquery.ui.all.css" rel="stylesheet"/>
+	<link href="extend/public.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/jscrollpane1.css"/>
+	<style>
+		.eContent-user{width: auto}body{overflow:hidden}#xhePanel{top:auto!important;bottom:164px}#xheShadow{display:none!important}#xheCntLine{display:none!important;opacity:0;filter:alpha(opacity=0)}.xheGStart+span+span{display:none}.text-center{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;width: 100%;}.talk .talk_header{background:#387ef5;color:#fff;font-weight:600}#send{width:64px;height:26px;line-height:26px;background:#979693;color:#fff;border-radius:3px;border:0;position:absolute;right:2px;top:2px;pointer-events:none}#send.on{background:#2196f3;pointer-events:auto}#send:active,#send:hover{background:#40c7d8}
+	</style>
+	<script type="text/javascript" src="lib/js/jquery/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/common.js"></script>
+	<script type="text/javascript" src="js/jquery.base64.js"></script>
+	<script type="text/javascript" src="xheditor/xheditor-1.2.1.min.js"></script>
+</head>
+<body>
+<!--讨论区滚动条end-->
+<script type="text/javascript">
+	var debugModule =false;
+	console.log=function(){
+		if(!debugModule)return;
+		var $debug = $('#debug').show();
+		var text =$debug.html();
+		var args = Array.prototype.slice.call(arguments);
+		args.forEach(function(a){
+			text+=a+'&nbsp;';
+		});
+		text+='<br>';
+		text.replace(/\n/g,'<br>');
+		$debug.html(text);
+	};
+var
+		getDataFromLink= 0,
+		toElsAccount, toElsSubAccount, businessType,
+		elsAccount, elsSubAccount, role,businessID ,
+		socket, chatMsg,multiEdit,xContent,sendBtn,jpContainer,
+		msgListDom,talkRecord,subH, th, people, multiChatMode,
+		btnCurrentPChart,currPChat,body,params ,frameData,
+		fromName , toName,isList,
+		 // 用于过滤返回消息html代码中的属性
+		filterAttrs	= [/^on/,/formaction/,/srcset/,/style/],
+		
+	 initSocket = function(){
+			
+	    var wsBaseAddress='ws://cs.51qqt.com:8080/ELSServer/ws/chat/';
+	    var wsAddress=wsBaseAddress + businessType + "/" + $.base64.btoa(businessID)+ "/" + elsAccount+ "/" + elsSubAccount+ "/" + role+ "/" + toElsAccount+ "/" + $.base64.btoa(toElsSubAccount);
+		try {
+			socket = new WebSocket(wsAddress);
+			console.log('正在连接服务器……','\n',	wsAddress);
+		}catch (e){
+			throw e;
+		}
+		if(!socket) {
+			return reInitSocket();
+		}
+		socket.onmessage = function (e) {
+			console.log("onmessage="+e.data);
+			if(msgListDom&&e&& e.data){
+				console.log("data="+e.data);
+				msgListDom.insertMsg(JSON.parse(e.data))
+			}
+		};
+		socket.onopen = function () {
+			console.log('连接成功！');
+			document.onkeydown = function (e) {
+				if (e.keyCode == 13 && e.ctrlKey) {
+					send();
+				}
+			};
+		};
+		socket.onclose = function () {
+			console.log('websocket关闭');
+			reInitSocket();
+		};
+		socket.onerror = function () {
+			console.log('websocket关闭');
+			reInitSocket();
+		};
+	 },
+	 socketMaxError = 30,
+	 reInitSocket = function(){
+		if(socketMaxError--){
+			console.log('socket 通讯异常,3秒后重新建立连接...');
+			setTimeout(initSocket,3000)
+		}else alert('连接异常，已经尝试重连到最大次数!')
+	 },
+	domInit =function(){
+		var lis;
+		chatMsg                     = $('#chatMsg');
+		xContent                    = $('.xContent');
+		jpContainer               = $('#jp-container');
+		sendBtn                     = $('#send');
+		talkRecord                = $('#talk_record');
+		btnCurrentPChart    = $('.talk .btnCurrentPChart');
+		currPChat                  = $('.talk .currPChat');
+		body                           = $('body');
+		isList                          = $('.isList');
+		if(getDataFromLink){
+			toElsAccount                = GetQueryString('toElsAccount');
+			toElsSubAccount         = GetQueryString('toElsSubAccount');
+			businessType                = GetQueryString('businessType');
+			businessID                    = GetQueryString('businessID');
+			elsAccount                    = GetQueryString('fromElsAccount');
+			elsSubAccount             = GetQueryString('fromElsSubAccount');
+			role                                = GetQueryString('role');
+			var getQueryStr = function (name) {
+				var urlParams = window.location.href;
+				var args = urlParams.split("?");
+				var str = args[1]||'';
+				args = str.split("&");
+				for (var i = 0; i < args.length; i++) {
+					var arg = args[i].split("=");
+					if (arg[0] == name) {
+						return arg[1];
+					}
+				}
+			};
+			multiChatMode = decodeURI(getQueryStr('type')) === 'multi';
+			lis = multiChatMode&&JSON.parse(decodeURI(getQueryStr('list')));
+		}else {
+//
+//			"fromElsAccount":$scope.loginElsAccount,
+//					"fromElsSubAccount":$scope.loginElsSubAccount,
+//					"toElsAccount":$stateParams.fromElsAccount,
+//					"toElsSubAccount":$stateParams.fromElsSubAccount,
+//					"businessType": $stateParams.businessType,
+//					"businessID": $stateParams.businessID,
+//					"role": $stateParams.fromStation,
+//					list:arr
+
+			toElsAccount            = frameData.toElsAccount;
+			toElsSubAccount     = frameData.toElsSubAccount;
+			businessType            = frameData.businessType;
+			businessID                = frameData.businessID;
+			elsAccount                = frameData.fromElsAccount;
+			elsSubAccount         = frameData.fromElsSubAccount;
+			role                            = frameData.role;
+			lis = frameData.list;
+			multiChatMode =lis && Array.isArray(lis)&&lis.length>1;
+		}
+		fromName                    = elsAccount+"_"+elsSubAccount;
+		toName                         = toElsAccount+"_"+toElsSubAccount;
+		params = {
+			fromElsAccount: elsAccount, fromElsSubAccount: elsSubAccount, toElsAccount: toElsAccount,
+			toElsSubAccount: toElsSubAccount, businessType: businessType, businessID: businessID,
+			fromStation: role,get content(){
+				return chatMsg&&chatMsg.val().replace(/!\s+|\s+$/g, '')||undefined;
+			}
+		};
+		console.log('传入参数:',JSON.stringify(params));
+		sendBtn.click(send);
+		if(!multiChatMode)isList.hide();
+		multiEdit = xContent.xheditor({
+			tools: 'Emot', skin: 'default',
+			blur:function(){if(chatMsg.val().length){sendBtn.addClass('on')}else {sendBtn.removeClass('on')}},
+			focus:function(){sendBtn.addClass('on')}
+		});
+		multiEdit.focus();
+		multiEdit.addShortcuts('ctrl+enter', function () {sendBtn.trigger('click');});
+
+		if (multiChatMode) {
+			currPChat.append(definedDom(lis.map(function(a){
+				return {tag:'p',text: a.name}
+			})));
+		} else {
+			btnCurrentPChart.hide();
+		}
+		btnCurrentPChart.click(function () {
+			if (btnCurrentPChart.hasClass('mmg-btnBackboardDn')) {
+				currPChat.slideDown(300, function () {
+					btnCurrentPChart.removeClass('mmg-btnBackboardDn').addClass('mmg-btnBackboardUp');
+				})
+			} else {
+				currPChat.slideUp(300, function () {
+					btnCurrentPChart.addClass('mmg-btnBackboardDn').removeClass('mmg-btnBackboardUp');
+				})
+			}
+		});
+	},
+	send = function () {
+		if (params.content)socket.send(JSON.stringify(params));
+		console.log('[socket] ',JSON.stringify(params));
+		chatMsg.val('')
+	},
+	messagesInit = function(){
+		
+		if("person"==businessType)
+			url='rest/ChatMessageService/findMyChatMessage';
+		else
+			url='rest/ChatMessageService/findOrderChatMessage';
+		
+		$.ajax({
+			url: url,
+			type: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(params),
+			dataType: 'json'
+		}).done(function(data){
+			var j = jpContainer[0];
+			if(data&&data.length){
+				var createMsg = function(d){
+					var m=d.fromElsAccount+'' === ''+elsAccount, c = m?'right':'left';
+					return definedDom('div',{
+						 class: 'text-' + c, css: {marginTop: '6px'},
+						children: [{
+							tag: 'div', class: 'text-center',
+							children: {
+								tag: 'span',
+								text: timeStamp2String(d['chatDateTime'])
+							}
+						}, {
+							tag: 'div', class: 'pos-relative',
+							css: {width: '100%', minHeight: '50px', marginTop: '4px'},
+							children: [{
+								tag: 'div', class: 'eContent-user fl-' + c + (m ? ' me' : 'other'),
+								width: 'auto', text: d.fromName
+							}, {
+								tag: 'div', class: 'eContent-content fl-' + c, children: [{
+									tag: 'span',
+									class: 'dis-in-b eContent-main pos-relative ' + (m ? 'mr-distance' : 'ml-distance'),
+									children: [{
+										tag: 'span',
+										class: 'dis-in-b pos-absolute dir-icon ' + c + (m ? ' rotate-180' : '')
+									}, {
+										tag: 'span', children: filterDOMString(d.content,filterAttrs,true)
+									}]
+								}, {tag: 'div', class: 'clear-both'}]
+							}]
+						}]
+					})
+				};
+
+				msgListDom =definedDom('div',{
+					css:{padding:'20px 0'},
+					insertMsg:function(d){
+						msgListDom.appendChild(createMsg(d));
+						j.scrollTop =j.scrollHeight * 2;
+					},
+					children:data.map(createMsg)
+				});
+				jpContainer.html(msgListDom);
+				j.scrollTop =j.scrollHeight * 2;
+			}
+		}).fail(function(data){
+			console.log(data);
+		});
+		initSocket();
+	};
+	$(function () {
+		if(getDataFromLink){
+			domInit();
+			messagesInit();
+		}else {
+			var onMessage = function(e){
+				frameData = e.data||{};
+				domInit();
+				messagesInit();
+				window.removeEventListener('message',onMessage,false);
+			};
+			window.addEventListener('message',onMessage,false);
+		}
+	});
+</script>
+<div class="talk" style="width: 100%; height: 100%;">
+	<div class="ui-state-default talk_header isList" style="padding: 1px;">
+		<div>
+			<span style="padding-left: 6px;">聊天列表</span>
+			&nbsp;
+			<span class="subTitle"> </span>
+			<a class="btnCurrentPChart mmg-btnBackboardDn"></a>
+		</div>
+	</div>
+	<div style="display: none;
+		word-wrap: break-word;
+	    word-break: break-all;
+	    position: fixed;left: 0;
+	    right: 0%;top: 0;height: 100px;
+	    z-index: 99;background:#FFF59E;
+	    overflow: auto"
+     id="debug"></div>
+	<div class="currPChat" style="display:none;">
+		<div class="cp_title">当前聊天</div>
+		<div class="cp_list"></div>
+		<div class="clear"></div>
+	</div>
+	<div class="talk_record" style="overflow:hidden">
+		<div id="jp-container" class="jp-container"
+		     style="width: 100%; overflow-y: scroll; overflow-x: hidden;">
+		</div>
+	</div>
+	<div style="width: 100%;margin: 0 auto;position: relative;">
+		<textarea title="" class="xContent" id="chatMsg" rows="4" cols="80" style="flex: 1"></textarea>
+		<div class="text-center"
+		     style="margin: 0;height: 50px;line-height: 30px;width: 60px;padding: 0 6px;">
+			<button id="send" class=" button-wrap">发送</button>
+		</div>
+	</div>
+</div>
+</body>
+</html>

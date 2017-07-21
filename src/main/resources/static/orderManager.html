@@ -1,0 +1,147 @@
+<link href="lib/js/jquery-easyui-1.3.6/themes/default/easyui.css" type="text/css" rel="stylesheet" />
+<link href="lib/js/jquery-easyui-1.3.6/themes/icon.css" type="text/css" rel="stylesheet" />
+<link href="extend/sheme.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="lib/js/jquery/jquery-1.8.2.js"></script>
+<script type="text/javascript" src="lib/js/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
+
+<div  id="tt" class="easyui-tabs" data-options="tabWidth:112" >
+    <div title="常规" class="p-10 scheme-tab-panel">
+        <div class="scheme-tab-content">
+            <div class="scheme-tab-left">
+                <span>订单号：</span>
+                <input class="easyui-textbox scheme-tab-input" >
+                <span>物料号：</span>
+                <input class="easyui-textbox scheme-tab-input" >
+                <a href="#" class="easyui-linkbutton scheme-option-btn">查询</a>
+            </div>
+            <div class="scheme-tab-right">
+                <div class="scheme-option-wrap">
+                    <span class="scheme-option-tip">操作</span>
+                    <a href="#" class="easyui-linkbutton scheme-option-btn">从SAP提取</a>
+                    <a href="#" class="easyui-linkbutton scheme-option-btn">新建</a>
+                    <a href="#" class="easyui-linkbutton scheme-option-btn">修改</a>
+                    <a href="#" class="easyui-linkbutton scheme-option-btn">删除</a>
+                    <a href="#" class="easyui-linkbutton scheme-option-btn">退出</a>
+                </div>
+            </div>
+            <div class="clear-both"></div>
+        </div>
+    </div>
+    <div title="综合查询" class="p-10">
+        <p>综合查询</p>
+    </div>
+</div>
+<div class="scheme-box scheme-had-sub-box">
+    <span class="scheme-box-tip">信息设置区域</span>
+    <div class="scheme-box scheme-had-content">
+        <span class="scheme-box-tip">采购订单头</span>
+        <div class="box-content">
+            <table id="dg" style="width:700px;height:auto;border:1px solid #ccc;">
+                <thead>
+                <tr>
+                    <th data-options="field:'itemid'">Item ID</th>
+                    <th data-options="field:'productid'">Product</th>
+                    <th data-options="field:'listprice',align:'right'">List Price</th>
+                    <th data-options="field:'attr1'">Attribute</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>EST-1</td><td>FI-SW-01</td><td>36.50</td><td>Large</td>
+                </tr>
+                <tr>
+                    <td>EST-10</td><td>K9-DL-01</td><td>18.50</td><td>Spotted Adult Female</td>
+                </tr>
+                <tr>
+                    <td>EST-11</td><td>RP-SN-01</td><td>28.50</td><td>Venomless</td>
+                </tr>
+                <tr>
+                    <td>EST-12</td><td>RP-SN-01</td><td>26.50</td><td>Rattleless</td>
+                </tr>
+                <tr>
+                    <td>EST-13</td><td>RP-LI-02</td><td>35.50</td><td>Green Adult</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-content">
+        <div class="box-title">
+            <span>计数： 1行</span>
+            <div class="box-content-other" id="beginApp">
+                <a href="#" class="easyui-linkbutton scheme-option-btn" onclick="beginAPP(event)">进入对话</a>
+            </div>
+        </div>
+        <div  id="subTab" class="easyui-tabs" data-options="tabWidth:112" >
+            <div title="采购行项目" class="p-10 scheme-tab-panel">
+                <table id="project" class="easyui-datagrid" style="width:700px;height:250px"
+                       url="datagrid8_getdata.php"
+                       title="Load Data" iconCls="icon-save"
+                       sortName="itemid" sortOrder="asc"
+                       rownumbers="true" pagination="true">
+                    <thead>
+                    <tr>
+                        <th field="itemid" width="80" sortable="true">Item ID</th>
+                        <th field="productid" width="100" sortable="true">Product ID</th>
+                        <th field="listprice" width="80" align="right" sortable="true">List Price</th>
+                        <th field="unitcost" width="80" align="right" sortable="true">Unit Cost</th>
+                        <th field="attr1" width="220">Attribute</th>
+                        <th field="status" width="60" align="center">Stauts</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div title="表单文件" class="p-10">
+                <table id="sheet" class="easyui-datagrid" style="width:700px;height:250px"
+                       url="datagrid8_getdata.php"
+                       title="Load Data" iconCls="icon-save"
+                       sortName="itemid" sortOrder="asc"
+                       rownumbers="true" pagination="true">
+                    <thead>
+                    <tr>
+                        <th field="itemid" width="80" sortable="true">Item ID</th>
+                        <th field="productid" width="100" sortable="true">Product ID</th>
+                        <th field="listprice" width="80" align="right" sortable="true">List Price</th>
+                        <th field="unitcost" width="80" align="right" sortable="true">Unit Cost</th>
+                        <th field="attr1" width="220">Attribute</th>
+                        <th field="status" width="60" align="center">Stauts</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function beginAPP(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        parent.elsDeskTop.myWindow.init({
+            'type': 1,
+            'iconSrc':'icon/els-icon.png',
+            'windowsId':'communication',
+            'windowTitle':'与供应商的会话',
+            'windowSubTitle':'正在进行中...',
+            'windowMinWidth' : 1210,
+            'windowMinHeight': 710,
+            'iframSrc':'communication.html',
+            'windowStatus':'maximized',
+            'showAdv': true,
+            'advArr': ['icon/test-car2.png','icon/test-car.png'],
+            'parentPanel':'body',
+            'windowWidth':1210,
+            'windowHeight':710,
+            'txNum':0
+        });
+    }
+    $(function(){
+        var tabs = $('#tt').tabs().tabs('tabs');
+        for(var i=0; i<tabs.length; i++){
+            tabs[i].panel('options').tab.unbind().bind('mouseenter',{index:i},function(e){
+                $('#tt').tabs('select', e.data.index);
+            });
+        }
+        $('#dg').datagrid();
+
+    });
+</script>

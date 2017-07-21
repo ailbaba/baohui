@@ -1,0 +1,91 @@
+#select * from els_app_auth where elsAccount='160003';
+delete from els_app_auth where elsAccount='160003';
+
+#prd环境
+
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('1', '160003', '1');               #i18n_label_accountmanager:账户管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('3', '160003', '1');               #i18n_label_addfrient:添加好友
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('5', '160003', '1');               #i18n_label_friendvalidation:好友验证
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('6', '160003', '1');               #供应商主数据
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('7', '160003', '1');               #i18n_label_materialrelation:物料关系
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('10', '160003', '1');        	   #i18n_label_rolenamager:角色管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('11', '160003', '1');        	   #i18n_label_purchaseenquirymanage:采购方询价单管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('12', '160003', '1');        	   #i18n_label_saleenquiryordermanager:销售方报价单管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('13', '160003', '1');        	   #i18n_label_friendmanager:好友管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('14', '160003', '1');              #i18n_label_queryPurchaseOrderHis:查询采购订单历史变更记录
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('15', '160003', '1');        	    #
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('16', '160003', '1');              #i18n_label_companyshowcolumnmanager:企业显示列管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('18', '160003', '1');              #i18n_label_saleBusReconManage:销售方业务对账管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('19', '160003', '1');              #i18n_label_purchaseOrderBatchManage:采购订单批量发送
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('20', '160003', '1');              #i18n_label_purchaseReplaceLogin:代报登录
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('21', '160003', '1');              #i18n_label_purchaseReplaceSet:代报设置
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('22', '160003', '1');              #i18n_label_editAccount:企业基本信息设置
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('23', '160003', '1');              #i18n_label_auditConfig:审批配置
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('25', '160003', '1');              #i18n_label_purchaseOrderReport:采购订单报表
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('27', '160003', '1');              #i18n_label_purchaseBus:采购方业务对账管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('28', '160003', '1');              #i18n_label_saleOrderReport:销售订单报表
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('29', '160003', '1');              #i18n_label_saleAdditionCostManage:销售附加费用管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('30', '160003', '1');              #i18n_label_saleEnquiryOrderReport:销售询价单报表
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('31', '160003', '1');              #i18n_label_purchaseEnquiryOrderReport:采购询价单报表
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('32', '160003', '1');              #i18n_label_scheduleTemplateManage:订单进度模板管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('33', '160003', '1');              #i18n_label_purchaseAddCostManage:采购附加费用管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('34', '160003', '1');              #i18n_label_saleRelevancyManager:销售方客户与ELS关联
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('35', '160003', '1');              #i18n_label_enquiryHisOrderManage:销售历史报价单管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('36', '160003', '1');              #i18n_label_purchaseBargainHisManage:采购历史议价单管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('45', '160003', '1');              #i18n_label_createDelivery:新建发货
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('46', '160003', '1');              #i18n_label_deliveryManage:发货管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('47', '160003', '1');              #i18n_label_scenConfirm:货物到场扫描
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('48', '160003', '1');              #i18n_label_queryDelivery:收货
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('49', '160003', '1');              #i18n_label_queryReceipt:收货管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('50', '160003', '1');              #i18n_label_refundOrderManage:退货
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('51', '160003', '1');              #i18n_label_refundConfirmOrderManage:确认退货
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('57', '160003', '1');              #i18n_label_printTemplateConfig:打印模板配置
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('59', '160003', '1');              #i18n_label_scheduleReport:订单进度汇总查询报表
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('60', '160003', '1');              #采购方准入管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('61', '160003', '1');              #i18n_batchImport_title_batchImportManage:批量导入
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('62', '160003', '1');              #i18n_title_supplierAuth:供应商权限
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('64', '160003', '1');              #i18n_material_manage:物料管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('66', '160003', '1');              #i18n_title_fileManage:文档管理中心
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('71', '160003', '1');              #i18n_title_fileDistribution:文档分配中心
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('79', '160003', '1');              #系统消息管理
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('82', '160003', '1');              #企利通
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('87', '160003', '1');              #供应链金融
+#INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('100', '160003', '1');             #销售方准入管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('105', '160003', '1');             #交货计划状态配置
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('108', '160003', '1');             #采购交货计划报表
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('109', '160003', '1');             #合同模板管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('110', '160003', '1');             #采购合同管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('111', '160003', '1');             #销售合同管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('141', '160003', '1');             #设计文档管理（设计师）
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('142', '160003', '1');             #设计文档管理（供应商）
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('143', '160003', '1');             #设计文档管理（采购员）
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('145', '160003', '1');             #组织架构管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('146', '160003', '1');             #采购申请管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('147', '160003', '1');             #子账号默认组织代码维护
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('148', '160003', '1');             #i18n_label_searchDictionaryManage:通用搜索数据字典管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('162', '160003', '1');             #i18n_label_scheduleHisReport:订单进度变更历史查询报表
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('163', '160003', '1');             #i18n_label_registerCodeQuery:邀请码管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('171', '160003', '1');             #i18n_label_scheduleReport2:订单进度汇总查询报表（改进版）
+
+
+#缺少：
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('8', '160003', '0');         #i18n_label_datadictionary:数据字典
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('164', '160003', '0');       #准入条例组管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('165', '160003', '0');       #类型管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('166', '160003', '0');       #准入模版管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('167', '160003', '0');       #准入条例管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('168', '160003', '0');       #物料替代关系
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('175', '160003', '0');       #客户资料
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('130', '160003', '0');       #物料货源清单管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('131', '160003', '0');       #统计报表
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('133', '160003', '0');       #组织架构管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('135', '160003', '0');       #采购申请管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('139', '160003', '0');       #子账号默认组织代码维护
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('115', '160003', '0');       #问卷管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('116', '160003', '0');       #问卷调查
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('77', '160003', '0');        #邮箱账号管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('78', '160003', '0');        #i18n_title_systemIntegrationMethod:系统集成方式管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('79', '160003', '0');        #i18n_title_systemMessageManagement:系统消息管理
+INSERT INTO `els_db`.`els_app_auth` (`appId`, `elsAccount`, `authType`) VALUES ('55', '160003', '0');        #i18n_label_smsTemplateManage:短信模板管理
+
+

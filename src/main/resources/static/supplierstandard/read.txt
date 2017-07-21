@@ -1,0 +1,154 @@
+DELETE FROM `els_app` WHERE appId='22'; 
+DELETE FROM `els_app` WHERE appId='60'; 
+DELETE FROM `els_app` WHERE appId='76'; 
+DELETE FROM `els_app` WHERE appId='81';
+DELETE FROM `els_app` WHERE appId='84'; 
+DELETE FROM `els_app` WHERE appId='88'; 
+DELETE FROM `els_app` WHERE appId='100'; 
+INSERT INTO `els_app` VALUES ('22', 'editAccount', '4', 'i18n_label_editAccount:企业基本信息设置', 'icon/destop-icon/desktop2_icon_179.png', 'account/editAccount.jsp', '1', '1', 'Y', '0', null, null, '900', '600', '21', 'true', 'icon/banner01.jpg,icon/banner02.jpg,icon/banner03.jpg,icon/banner04.jpg', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'regular', '500', 'false', '.currDesktop', null, '', null, null, null, null, null, null, null, null, null, 'true');
+INSERT INTO `els_app` VALUES ('60', 'purchaseSupplyManager', '1', '采购方准入管理', 'icon/destop-icon/desktop2_icon_179.png', 'supplierstandard/purchase/purchaseSupplyManager.jsp', null, '1', 'Y', '0', null, null, '800', '500', '60', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', '.currDesktop', null, '', null, null, null, null, null, null, null, null, null, 'true');
+INSERT INTO `els_app` VALUES ('76', 'priceCheckSetupManager', '4', '价格自动检查设置', 'icon/destop-icon/desktop_icon_43.gif', 'supplierstandard/purchase/priceCheckSetupManager.jsp', '1', '1', 'Y', '0', null, null, '800', '500', '61', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'regular', '500', 'false', '.currDesktop', null, '', null, null, null, null, null, null, null, null, null, 'false');
+INSERT INTO `els_app` VALUES ('81', 'biddingSaleManage', '2', '销售方投标管理', 'icon/destop-icon/desktop2_icon_181.png', 'biddingmanage/sale/biddingSaleManage.jsp', '1', '1', 'Y', '0', null, null, '800', '500', '81', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', '.currDesktop', null, '', null, null, null, null, null, null, null, null, null, 'false');
+INSERT INTO `els_app` VALUES ('84', 'assessmentSupplyManager', '1', '供应商评估管理', 'icon/destop-icon/desktop2_icon_179.png', 'supplierassessment/purchase/assessmentSupplyManager.jsp', '1', '1', 'Y', '0', null, null, '800', '500', '82', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', 'body', null, '', null, null, null, null, null, null, null, null, null, 'false');
+INSERT INTO `els_app` VALUES ('88', 'supplierAssessReport', '1', '供应商评估报表', 'icon/destop-icon/desktop_icon_119.gif', 'supplierassessment/report/supplierAssessReport.jsp', '1', '1', 'Y', '0', null, null, '800', '500', '88', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', '.currDesktop', null, '', null, null, null, null, null, null, null, null, null, 'false');
+INSERT INTO `els_app` VALUES ('100', 'saleSupplyManager', '2', '销售方准入管理', 'icon/destop-icon/desktop2_icon_179.png', 'supplierstandard/sale/saleSupplyManager.jsp', '1', '1', 'Y', '0', null, null, '800', '500', '100', 'false', '[]', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', 'body', null, '', null, null, null, null, null, null, null, null, null, 'false');
+
+
+UPDATE els_app SET appCode = 'editAccount',               appName='i18n_label_editAccount:企业基本信息设置',appUrl='account/editAccount.jsp'                                  WHERE appId = 22;
+UPDATE els_app SET appCode = 'biddingSaleManage',         appName='销售方投标管理',                         appUrl='biddingmanage/sale/biddingSaleManage.jsp'                 WHERE appId = 81;
+UPDATE els_app SET appCode = 'assessmentSupplyManager',   appName='供应商评估管理',                         appUrl='supplierassessment/purchase/assessmentSupplyManager.jsp'  WHERE appId = 84;
+UPDATE els_app SET appCode = 'supplierAssessReport',      appName='供应商评估报表',                         appUrl='supplierassessment/report/supplierAssessReport.jsp'       WHERE appId = 88;
+
+UPDATE els_app SET appCode = 'purchaseSupplyManager',     appName='采购方准入管理',  appCategoryId='1',     appUrl='supplierstandard/purchase/purchaseSupplyManager.jsp'      WHERE appId = 60;
+UPDATE els_app SET appCode = 'priceCheckSetupManager',    appName='价格自动检查设置',                       appUrl='supplierstandard/purchase/priceCheckSetupManager.jsp'     WHERE appId = 76;
+UPDATE els_app SET appCode = 'saleSupplyManager',         appName='销售方准入管理',                         appUrl='supplierstandard/sale/saleSupplyManager.jsp'              WHERE appId = 100;
+-----------------------------------------------------------------------------------------------------------
+standard_supplier_head  supplierElsAccount 改为 toElsAccount
+脚本：
+ALTER TABLE standard_supplier_head CHANGE supplierElsAccount toElsAccount VARCHAR(20) DEFAULT NULL COMMENT '供应商ELS账号';
+
+standard_supplier_head  增加如下字段
+采购组                   purchaseGroup
+供应商分类           groupName
+ERP供应商编码     vender
+脚本：
+ALTER TABLE standard_supplier_head ADD purchaseGroup VARCHAR(15) DEFAULT NULL COMMENT '采购组';
+ALTER TABLE standard_supplier_head ADD groupName VARCHAR(45) DEFAULT NULL COMMENT '供应商分类';
+ALTER TABLE standard_supplier_head ADD vender VARCHAR(20) DEFAULT NULL COMMENT 'ERP供应商编码';
+-----------------------------------------------------------------------------------------------------------
+准入单审批条件：准入单类型、采购组、供应商分类、子账号（负责人）
+脚本：
+INSERT INTO `els_audit_property` VALUES ('standardSupplier', 'standardType', '准入单类型', 'string');
+INSERT INTO `els_audit_property` VALUES ('standardSupplier', 'purchaseGroup', '采购组', 'string');
+INSERT INTO `els_audit_property` VALUES ('standardSupplier', 'groupName', '供应商分类', 'string');
+INSERT INTO `els_audit_property` VALUES ('standardSupplier', 'elsSubAccount', '负责人', 'string');
+-----------------------------------------------------------------------------------------------------------
+准入单加消息通知
+修改文件如下：
+MsgServiceImpl.java
+notice.js
+-----------------------------------------------------------------------------------------------------------
+审批配置
+修改文件如下：
+auditList.jsp
+AuditServiceImpl.java
+-----------------------------------------------------------------------------------------------------------
+在表standard_supplier_item增加字段toElsAccount
+脚本：
+ALTER TABLE standard_supplier_item ADD toElsAccount VARCHAR(20) DEFAULT NULL COMMENT '对方els帐号';
+
+在表standard_supplier_item增加字段regulationDetail
+脚本
+ALTER TABLE `standard_supplier_item`
+ADD COLUMN `regulationDetail`  varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL COMMENT '条例描述' AFTER `regulationName`;
+-----------------------------------------------------------------------------------------------------------
+供应商准入--分页优化及事务
+SELECT distinct
+	ssh.elsAccount,
+	ssh.standardNumber,
+	ssh.elsDesc,
+	ssh.standardDesc,
+	ssh.standardType,
+	ssh.applyDate,
+	ssh.toElsAccount,
+	ssh.supplierElsDesc,
+	ssh.sendStatus,
+	ssh.standardStatus,
+	ssh.stretegyCode,
+	ssh.flowCode,
+	ssh.auditMode,
+	ssh.auditStatus,
+	ssh.totalScore,
+	ssh.logtime,
+	ssh.remark,
+	ssh.purchaseGroup,
+	ssh.groupName,
+	ssh.fbk1,
+	ssh.fbk2,
+	ssh.fbk3,
+	ssh.fbk4,
+	ssh.fbk5,
+	ssh.fbk6,
+	ssh.fbk7,
+	ssh.fbk8,
+	ssh.fbk9,
+	ssh.fbk10,
+	ssh.fbk11,
+	ssh.fbk12,
+	ssh.fbk13,
+	ssh.fbk14,
+	ssh.fbk15,
+	ssh.fbk16,
+	ssh.fbk17,
+	ssh.fbk18,
+	ssh.fbk19,
+	ssh.fbk20,
+	ssh.fbk21,
+	ssh.fbk22,
+	ssh.fbk23,
+	ssh.fbk24,
+	ssh.fbk25,
+	ssh.fbk26,
+	ssh.fbk27,
+	ssh.fbk28,
+	ssh.fbk29,
+	ssh.fbk30,
+	ssh.fbk31,
+	ssh.fbk32,
+	ssh.fbk33,
+	ssh.fbk34,
+	ssh.fbk35,
+	ssh.fbk36,
+	ssh.fbk37,
+	ssh.fbk38,
+	ssh.fbk39,
+	ssh.fbk40,
+	ssh.fbk41,
+	ssh.fbk42,
+	ssh.fbk43,
+	ssh.fbk44,
+	ssh.fbk45,
+	ssh.fbk46,
+	ssh.fbk47,
+	ssh.fbk48,
+	ssh.fbk49,
+	ssh.fbk50,
+	ssh.createDate,
+	ssh.createUser,
+	ssh.lastUpdateDate,
+	ssh.lastUpdateUser,
+	ssh.templateName,
+	ssh.templateNumber,
+	CONCAT(esi.elsSubAccount,'_',esi. NAME) AS person,
+  smd.vender
+FROM
+	standard_supplier_head ssh
+LEFT JOIN els_subaccount_info esi ON esi.elsAccount = ssh.elsAccount
+AND esi.elsSubAccount = LEFT (ssh.person, 4)
+LEFT JOIN supplier_main_data smd ON smd.elsAccount = ssh.elsAccount
+AND smd.toElsAccount = ssh.toElsAccount
+WHERE
+	ssh.elsAccount = '160000'
+ORDER BY
+	ssh.standardNumber DESC
+

@@ -1,0 +1,16 @@
+数据库这几天表修改脚本
+1,询报价含税价及不含税价
+
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseEnquiryItem_material'
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseEnquiryItem_market'
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseEnquiryItem_texture'
+
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseEnquiryBargainMaterial'
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseEnquiryBargainItem'
+
+SELECT * FROM `els_table_column` t WHERE t.tableCode='sale_enquiry_header'
+SELECT * FROM `els_table_column` t WHERE t.tableCode='sale_enquiry_item'
+
+SELECT * FROM `els_table_column` t WHERE t.tableCode='purchaseApplyManage'
+
+

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>els 系统桌面</title>
+    <script type="text/javascript" src="lib/js/jquery/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="lib/js/elsDeskTop/elsDeskTopBase.js"></script>
+    <script type="text/javascript" src="js/elsDesktopInit.js"></script>
+    <!--[if IE 6]>
+    <script type="text/javascript" src="lib/js/jquery/DD_belatedPNG_0.0.8a.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div id="wallpaper"></div>
+    <div id="desktopWrapper">
+        <div id="topBar"></div>
+        <div id="leftBar">
+            <div id="dockContainer" class="dock_container dock_pos_left">
+                <div class="dock_middle">
+                    <div id="default_app"></div>
+                    <div class="default_tools"> <a href="javascript:void(0);" id="showZm_btn" title="全屏"></a><a href="javascript:void(0);" id="shizhong_btn" title="时钟"></a> </div>
+                    <div class="default_tools"> <a href="javascript:void(0);" id="weather_btn" title="天气"></a> <a href="javascript:void(0);" id="them_btn" title="主题"></a></div>
+                    <div id="start_block"> <a title="开始" id="start_btn"></a>
+                        <div id="start_item">
+                            <ul class="item admin">
+                                <li><span class="adminImg"></span> PSSDSS</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="rightBar"></div>
+        <div class="dock_drap_effect dock_drap_effect_top" ></div>
+        <div class="dock_drap_effect dock_drap_effect_left" ></div>
+        <div class="dock_drap_effect dock_drap_effect_right" ></div>
+        <div class="dock_drap_mask">
+            <div name="top" class="dock_drop_region_top"></div>
+            <div name="left" class="dock_drop_region_left"></div>
+            <div name="right" class="dock_drop_region_right"></div>
+        </div>
+        <div id="desktopsContainer">
+            <div id="desktopContainer"></div>
+        </div>
+        <div id="bottomBarBgTask"></div>
+        <div id="taskBlock">
+            <div class="taskNextBox" id="taskNextBox"> <a href="javascript:void(0);" class="taskNext" id="taskNext"></a> </div>
+            <div id="taskOuterBlock">
+                <div id="taskInnnerBlock"> </div>
+            </div>
+            <div id="taskPreBox" class="taskPreBox"> <a href="javascript:void(0);" id="taskPre" class="taskPre"></a> </div>
+        </div>
+        <div id="navBar"><s class="l"><div class="indicator indicator_header" cmd="user" title="编辑个人资料"><img src="icon/getface.jpeg" alt="编辑个人资料" class="indicator_header_img" id="navbarHeaderImg"></div></s><span></span><s class="r"><a class="indicator indicator_manage" href="javascript:void(0);" hidefocus="true" cmd="manage" title="全局视图"></a></s></div>
+    </div>
+    <div id="appManagerPanel" class="appManagerPanel">
+        <a class="aMg_close" href="javascript:void(0);"></a>
+        <div class="aMg_dock_container"></div>
+        <div class="aMg_line_x"></div>
+        <div class="aMg_folder_container">
+            <div class="aMg_folder_innercontainer"></div>
+        </div>
+        <a href="javascript:void(0);" id="aMg_prev"></a>
+        <a href="javascript:void(0);" id="aMg_next"></a>
+    </div>
+</body>
+</html>

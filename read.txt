@@ -1,0 +1,40 @@
+1，采用springboot微服务架构（只需运行main即可）
+   public static void main(String[] args) {
+	 SpringApplication.run(MicroserviceSimpleProviderUserApplication.class, args);
+   }
+
+2，由maven管理jar包（maven库）网址如下：
+   <mirror>  
+      <id>repo2</id>  
+      <mirrorOf>central</mirrorOf>  
+      <name>Human Readable Name for this Mirror.</name>  
+      <url>http://repo2.maven.org/maven2/</url>  
+    </mirror>
+    
+3，下面运行jsp运行环境（要配置jdk1.8），如下：
+     3.1，端口8080(也可改成其他的)
+     3.2，显示ok
+     3.3，hello.jsp
+     3.4，只需配置
+     spring:
+       mvc:
+	     view:
+	       prefix: /jsp/
+	       suffix: .jsp
+4，显示html（即静态页面）
+   4.1，显示ok
+
+5，显示jpg（即图）
+   5.1，显示  ok
+   
+6，整合了mybatis，如下：
+   6.1，查询 ok
+    
+
+
+
+   谢谢~~~~~
+
+    
+    
+   

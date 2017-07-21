@@ -1,0 +1,186 @@
+-------------------------------------接口(供应商主数据) 新建-------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_class_name` VALUES ('105012', '诺普信', 'SAP', 'SupplierMainDataSapServiceImpl', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'ToSapSupplierMainData', 'SupplierMainDataSapServiceImpl', 'toSapSupplierMainData', 'XX1005', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'ToSapSupplierMainData', 'toSapSupplierMainData', '供应商主数据', null, null, null, null, null, null, null, null, null, null);
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1005', '10004', '10017', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function` VALUES ('10017', 'ZRFC_SRM_VENDOR_CREATE', '1', 'Y', '2016-04-21 15:25:39', '江志东', '2016-04-21 15:25:28', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10017', 'ITAB', 'STRUCT', '  ', 'ITAB', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'LIFNR',  'STRING', '', 'LIFNR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'BUKRS',  'STRING', '', 'BUKRS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'EKORG',  'STRING', '', 'EKORG',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'KTOKK',  'STRING', '', 'KTOKK',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'ANRED',  'STRING', '', 'ANRED',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'NAME1',  'STRING', '', 'NAME1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'NAME2',  'STRING', '', 'NAME2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'SORTL',  'STRING', '', 'SORTL',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'STRAS',  'STRING', '', 'STRAS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'PSTLZ',  'STRING', '', 'PSTLZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'LAND1',  'STRING', '', 'LAND1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'REGIO',  'STRING', '', 'REGIO',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'ORT01',  'STRING', '', 'ORT01',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'TELF1',  'STRING', '', 'TELF1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'TELFX',  'STRING', '', 'TELFX',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'TELF2',  'STRING', '', 'TELF2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'STCD1',  'STRING', '', 'STCD1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'STCD2',  'STRING', '', 'STCD2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'STCEG',  'STRING', '', 'STCEG',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'BRSCH',  'STRING', '', 'BRSCH',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'BANKS',  'STRING', '', 'BANKS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'BANKL',  'STRING', '', 'BANKL',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'BANKN',  'STRING', '', 'BANKN',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'KOINH',  'STRING', '', 'KOINH',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'AKONT',  'STRING', '', 'AKONT',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'ZTERM',  'STRING', '', 'ZTERM',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'ZWELS',  'STRING', '', 'ZWELS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'WAERS',  'STRING', '', 'WAERS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'KALSK',  'STRING', '', 'KALSK',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'WEBRE',  'STRING', '', 'WEBRE',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'VERKF',  'STRING', '', 'VERKF',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'ZTERM1', 'STRING', '', 'ZTERM1', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'KZAUT',  'STRING', '', 'KZAUT',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'EKGRP',  'STRING', '', 'EKGRP',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'PLIFZ',  'STRING', '', 'PLIFZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10017', 'ITAB', 'LFABC',  'STRING', '', 'LFABC',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+INSERT INTO `els_erp_function_export` VALUES ('10017', 'EP_SUBRC', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+INSERT INTO `els_erp_function_export` VALUES ('10017', 'ET_MESSAGE', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+INSERT INTO `els_erp_function_export` VALUES ('10017', 'EP_LIFNR', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+-------------------------------------接口(供应商扩展主数据)-------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'ToSapSupplierMainDataExtend', 'SupplierMainDataSapServiceImpl', 'toSapSupplierMainDataExtend', 'XX1006', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'ToSapSupplierMainDataExtend', 'SupplierMainDataSapServiceImpl', '询价结果上传ERP', null, null, null, null, null, null, null, null, null, null);
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1006', '10004', '10018', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function` VALUES ('10018', 'ZRFC_SRM_VENDOR_EXTEND', '1', 'Y', '2016-04-21 15:25:39', '江志东', '2016-04-21 15:25:28', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10018', 'ITAB', 'STRUCT', '  ', 'ITAB', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10018', 'ITAB', 'LIFNR',  'STRING', '', 'LIFNR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10018', 'ITAB', 'BUKRS',  'STRING', '', 'BUKRS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10018', 'ITAB', 'AKONT',  'STRING', '', 'AKONT',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10018', 'ITAB', 'ZTERM',  'STRING', '', 'ZTERM',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10018', 'ITAB', 'ZWELS',  'STRING', '', 'ZWELS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+INSERT INTO `els_erp_function_export` VALUES ('10018', 'EP_SUBRC', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+INSERT INTO `els_erp_function_export` VALUES ('10018', 'ET_MESSAGE', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+-------------------------------------接口(供应商主数据) 更新-------------------------------------------------------------
+反射配置   春林
+integration_class_name  各个企业各类型接口对应的service名
+integration_methods  各个企业各个接口配置
+integration_mothod_name  各企业各类型各个接口方法名的配置
+
+INSERT INTO `integration_class_name` VALUES ('105012', '诺普信', 'SAP', 'SupplierMainDataSapServiceImpl', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_methods` VALUES ('105012', 'SAP', 'ToSapSupplierMainDataUpdate', 'SupplierMainDataSapServiceImpl', 'toSapSupplierMainDataUpdate', 'XX1007', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `integration_mothod_name` VALUES ('105012', '诺普信', 'SAP', 'ToSapSupplierMainDataUpdate', 'toSapSupplierMainDataUpdate', '供应商主数据更新', null, null, null, null, null, null, null, null, null, null);
+
+表结构配置   飞宇
+els_erp_connection 配置sap链接信息
+els_erp_access_config 配置链接SAP的权限信息
+els_erp_function 配置sap rfc函数名
+els_erp_function_import 配置rfc入参结构
+els_erp_function_export 配置rfc出参结构
+els_erp_function_struct 配置rfc参数详细结构
+els_erp_function_save 配置结构保存设置（已经没用）
+
+INSERT INTO `els_erp_access_config` VALUES ('105012', 'XX1007', '10004', '10020', '2016-04-21 15:52:28', '江志东', '2016-03-29 18:50:42', null);
+
+INSERT INTO `els_erp_function` VALUES ('10020', 'ZRFC_SRM_VENDOR_MODIFY', '1', 'Y', '2016-04-21 15:25:39', '江志东', '2016-04-21 15:25:28', null);
+
+INSERT INTO `els_erp_function_import` VALUES ('10020', 'ITAB', 'STRUCT', '  ', 'ITAB', 'STRING', ' ', ' ', '2016-04-21 15:39:02', null, '2016-04-21 15:39:11', null);
+
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'LIFNR',  'STRING', '', 'LIFNR',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'BUKRS',  'STRING', '', 'BUKRS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'EKORG',  'STRING', '', 'EKORG',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'KTOKK',  'STRING', '', 'KTOKK',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'ANRED',  'STRING', '', 'ANRED',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'NAME1',  'STRING', '', 'NAME1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'NAME2',  'STRING', '', 'NAME2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'SORTL',  'STRING', '', 'SORTL',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'STRAS',  'STRING', '', 'STRAS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'PSTLZ',  'STRING', '', 'PSTLZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'LAND1',  'STRING', '', 'LAND1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'REGIO',  'STRING', '', 'REGIO',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'ORT01',  'STRING', '', 'ORT01',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'TELF1',  'STRING', '', 'TELF1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'TELFX',  'STRING', '', 'TELFX',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'TELF2',  'STRING', '', 'TELF2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'STCD1',  'STRING', '', 'STCD1',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'STCD2',  'STRING', '', 'STCD2',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'STCEG',  'STRING', '', 'STCEG',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'BRSCH',  'STRING', '', 'BRSCH',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'BANKS',  'STRING', '', 'BANKS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'BANKL',  'STRING', '', 'BANKL',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'BANKN',  'STRING', '', 'BANKN',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'KOINH',  'STRING', '', 'KOINH',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'AKONT',  'STRING', '', 'AKONT',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'ZTERM',  'STRING', '', 'ZTERM',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'ZWELS',  'STRING', '', 'ZWELS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'WAERS',  'STRING', '', 'WAERS',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'KALSK',  'STRING', '', 'KALSK',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'WEBRE',  'STRING', '', 'WEBRE',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'VERKF',  'STRING', '', 'VERKF',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'ZTERM1', 'STRING', '', 'ZTERM1', ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'KZAUT',  'STRING', '', 'KZAUT',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'EKGRP',  'STRING', '', 'EKGRP',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'PLIFZ',  'STRING', '', 'PLIFZ',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `els_erp_function_struct` VALUES ('10020', 'ITAB', 'LFABC',  'STRING', '', 'LFABC',  ' ', ' ', ' ', ' ', '2016-04-21 15:47:58', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+INSERT INTO `els_erp_function_export` VALUES ('10020', 'EP_SUBRC', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+INSERT INTO `els_erp_function_export` VALUES ('10020', 'ET_MESSAGE', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+INSERT INTO `els_erp_function_export` VALUES ('10020', 'EP_LIFNR', 'SIMPLE', '2016-04-21 16:14:25', '江志东', '2016-04-21 16:14:33', null);
+
+--------------------------------------------------------------------------------------------------
+主数据表改字段
+准入单号             admittanceFormNumber         standardNumber
+单据类型             admittanceFormType           standardType
+单据状态            admittanceFormStatus         standardStatus
+审批状态             admittanceFormValiteStatus   auditStatus
+脚本：
+ALTER TABLE supplier_main_data CHANGE admittanceFormNumber standardNumber VARCHAR(20) DEFAULT NULL COMMENT '准入单号';
+ALTER TABLE supplier_main_data CHANGE admittanceFormType standardType VARCHAR(10) DEFAULT NULL COMMENT '单据类型';
+ALTER TABLE supplier_main_data CHANGE admittanceFormStatus standardStatus VARCHAR(10) DEFAULT NULL COMMENT '单据状态';
+ALTER TABLE supplier_main_data CHANGE admittanceFormValiteStatus auditStatus VARCHAR(11) DEFAULT NULL COMMENT '审批状态';
+--------------------------------------------------------------------------------------------------
+auditStatus
+VARCHAR改为int
+脚本：
+ALTER TABLE `supplier_main_data`  MODIFY COLUMN auditStatus INT(11) COMMENT '审批状态(0:审批通过\n1:未审批\n2:审批中\n3:审批拒绝)';
+--------------------------------------------------------------------------------------------------
+INSERT INTO `els_app` VALUES (6, 'supplierMainDataManager', 3, 'i18n_label_supplierMainDataManager:供应商主数据', 'icon/destop-icon/desktop2_icon_181.png', 'suppliermaindata/supplierMainDataManager.jsp', '1', 1, 'Y', 0, NULL, NULL, '800', '500', 6, 'true', 'icon/banner01.jpg,icon/banner02.jpg,icon/banner03.jpg,icon/banner04.jpg', 'center', 'center', '250', '250', 'true', 'true', 'true', 'true', 'true', 'maximized', '500', 'false', '.currDesktop', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'true');
+
