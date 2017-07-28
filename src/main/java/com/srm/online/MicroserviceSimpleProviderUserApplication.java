@@ -1,4 +1,4 @@
-package com.itmuch.cloud;
+package com.srm.online;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.tomcat.jdbc.pool.DataSource;

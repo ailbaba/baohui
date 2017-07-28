@@ -1,4 +1,4 @@
-package com.itmuch.cloud.controller;
+package com.srm.online.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

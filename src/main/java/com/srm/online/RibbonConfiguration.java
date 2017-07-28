@@ -1,4 +1,4 @@
-package com.itmuch.cloud;
+package com.srm.online;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

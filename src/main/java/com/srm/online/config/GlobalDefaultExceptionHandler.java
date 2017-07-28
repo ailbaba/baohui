@@ -1,4 +1,4 @@
-package com.itmuch.cloud.config;
+package com.srm.online.config;
 
 import javax.servlet.http.HttpServletRequest;
 
